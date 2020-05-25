@@ -459,7 +459,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.3k
                 </div>
                 
 
@@ -600,7 +600,14 @@ $a = new Flag();
 echo serialize($a);
 ?&gt;
 //O:4:"Flag":1:{s:4:"file";s:8:"flag.php";}</code></pre><p>最后payload</p>
-<pre><code>?text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=&amp;file=useless.php&amp;password=O:4:%22Flag%22:1:%7Bs:4:%22file%22;s:8:%22flag.php%22;%7D</code></pre><script>
+<pre><code>?text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=&amp;file=useless.php&amp;password=O:4:%22Flag%22:1:%7Bs:4:%22file%22;s:8:%22flag.php%22;%7D</code></pre><h2 id="ASIS-2019-Unicorn-shop"><a href="#ASIS-2019-Unicorn-shop" class="headerlink" title="[ASIS 2019]Unicorn shop"></a>[ASIS 2019]Unicorn shop</h2><p>一个买东西的功能，尝试买一下最贵的。</p>
+<p>输入 id：4           price：1337</p>
+<p>回显：Only one char(?) allowed!</p>
+<p>结合题目unicorn，应该是利用了Unicode的等价性。</p>
+<p>可以在这个网站上直接查询<a href="https://www.compart.com/en/unicode/U+2031" target="_blank" rel="noopener">https://www.compart.com/en/unicode/U+2031</a></p>
+<p>关于Unicode的知识，详见wiki</p>
+<p><a href="https://zh.wikipedia.org/wiki/Unicode等價性" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Unicode%E7%AD%89%E5%83%B9%E6%80%A7</a></p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }

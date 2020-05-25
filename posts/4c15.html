@@ -459,7 +459,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    89
+                    2.1k
                 </div>
                 
 
@@ -477,7 +477,218 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="pingpingping"><a href="#pingpingping" class="headerlink" title="pingpingping"></a>pingpingping</h2><p>在昨天的<a href="https://www.hackyangtuo.top/posts/ab7.html#toc-heading-1写过了" target="_blank" rel="noopener">https://www.hackyangtuo.top/posts/ab7.html#toc-heading-1写过了</a></p>
-<h2 id="禁止套娃"><a href="#禁止套娃" class="headerlink" title="禁止套娃"></a>禁止套娃</h2><p>啥都没有，扫描器扫出来了git源码泄露</p>
+<h2 id="禁止套娃"><a href="#禁止套娃" class="headerlink" title="禁止套娃"></a>禁止套娃</h2><p>考察：<strong>git源码泄露，无参数RCE</strong>                </p>
+<p>啥都没有，扫描器扫出来了git源码泄露</p>
+<pre><code class="php">&lt;?php
+include "flag.php";
+echo "flag在哪里呢？&lt;br&gt;";
+if(isset($_GET['exp'])){
+    if (!preg_match('/data:\/\/|filter:\/\/|php:\/\/|phar:\/\//i', $_GET['exp'])) {
+        if(';' === preg_replace('/[a-z,_]+\((?R)?\)/', NULL, $_GET['exp'])) {
+            if (!preg_match('/et|na|info|dec|bin|hex|oct|pi|log/i', $_GET['exp'])) {
+                // echo $_GET['exp'];
+                @eval($_GET['exp']);
+            }
+            else{
+                die("还差一点哦！");
+            }
+        }
+        else{
+            die("再好好想想！");
+        }
+    }
+    else{
+        die("还想读flag，臭弟弟！");
+    }
+}
+// highlight_file(__FILE__);
+?&gt;</code></pre>
+<p>分析一下：</p>
+<ul>
+<li>flag在flag.php，需要我们去读取</li>
+<li>参数exp可控，满足if的正则条件后，可以eval进行RCE</li>
+<li>正则过滤了常用的几种伪协议，et、na、info等使用函数常见字段，比如<code>file_get_contents()</code>就用不了了</li>
+<li><code>(?R)</code>表明应该是无参数RCE            一般是preg_match这个【<code>/[^\W]+\((?R)?\)/</code>】，只允许<code>a(b(c()));</code>  这种类型的传入函数</li>
+</ul>
+<p>比如说我们要看一下当前目录下的文件，我们想要用<code>print_r(scandir(./))</code>来扫描，但是由于进行无参数的RCE，我们不能添加<code>./</code>，所以我们需要其他的函数来代替准确的代表flag.php再进行读取。</p>
+<p>有一些函数在无参数RCE中经常使用</p>
+<ul>
+<li><code>localeconv()</code>:返回一包含本地数字及货币格式信息的数组</li>
+<li><code>current()</code>:用于返回=<code>pos()</code></li>
+</ul>
+<p>这两个加起来可以替换<code>scandir()</code>函数的<code>./</code>参数</p>
+<p><img src="https://i.loli.net/2020/05/12/rxluvhyMLUNGaHC.jpg" alt="current_localeconv___.jpg"></p>
+<ul>
+<li><code>getenv()</code>:获取各种环境变量，但是打印出的一般是庞杂的数组，比如下图。</li>
+</ul>
+<p><img src="https://i.loli.net/2020/05/12/RiyKGWOzLu6JrMk.jpg" alt="getenv.jpg"></p>
+<p>如果要提取的话需要下面的函数：</p>
+<ul>
+<li><code>array_rand(array_flip())</code>:其中<code>array_rand()</code>是随机返回一个数组键（默认，不指定$num的情况下）。<code>array_flip()</code>是将数组中的键和值交换。</li>
+</ul>
+<h2 id="BabySql"><a href="#BabySql" class="headerlink" title="BabySql"></a>BabySql</h2><p>fuzz出了语句(经过了base32+base64加密)：select * from user where username = ‘$name’</p>
+<p>题目告诉了哈希，那么基本是md5比较绕过，少部分是特殊sql，没注明的话应该就是md5。后台应该是通过比较<code>$pw</code> 和 <code>$name</code>的md5值来确定login or not。</p>
+<p>很容易得到payload</p>
+<pre><code>username:adm'union select 1,'admin','e10adc3949ba59abbe56e057f20f883e'#
+passwd:123456</code></pre><p>  后来想起来当时sqlmap一把梭了</p>
+<h2 id="BabyUpload"><a href="#BabyUpload" class="headerlink" title="BabyUpload"></a>BabyUpload</h2><p>*<em>考察：.htaccess+GIF89a头绕过                *</em></p>
+<p>fuzz一个普通图片马试试，回显<code>“这标志明显还是php”</code>，应该是判断hex码的头，如<code>&lt;?</code>。简单的添加GIF89a头，用这个形式：</p>
+<pre><code class="html">&lt;script language="php"&gt; eval($_POST[v]); &lt;/script&gt;</code></pre>
+<p>之后和之前一样，上传.htaccess，改Content-Type，但是之后发现无法访问，怀疑是后台每隔一段时间就删掉了。条件竞争处理即可。</p>
+<h2 id="BabysqliV3-0"><a href="#BabysqliV3-0" class="headerlink" title="BabysqliV3.0"></a>BabysqliV3.0</h2><p>考察：phar<strong>反序列化</strong>                </p>
+<h2 id="StrongestMind"><a href="#StrongestMind" class="headerlink" title="StrongestMind"></a>StrongestMind</h2><h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><p>buu交的时候前缀改为flag哦</p>
+<h2 id="佛系青年"><a href="#佛系青年" class="headerlink" title="佛系青年"></a>佛系青年</h2><p><strong>考察：伪加密，与佛论禅                难度：易</strong></p>
+<p>压缩包，头部有损坏。检查发现是fo.txt处出现了伪加密，将0900改为0000.</p>
+<p>打开是与佛论禅，由于原网站GG，用脚本一样可以：</p>
+<pre><code class="python"># !/usr/bin/env python3
+#
+# nianfo.py - TudouCode Demo in Python 3
+# Credit: https://github.com/lersh/TudouCode/
+#
+# Note:
+#  
+#     This is the first version('佛曰') of TudouCode('与佛论禅').
+#     The second version('如是我闻') needs compression and I can't debug.
+# 
+# Dependency: pycrypto
+
+from Crypto.Cipher import AES
+from random import choice
+
+KEY = b'XDXDtudou@KeyFansClub^_^Encode!!'
+IV = b'Potato@Key@_@=_='
+
+TUDOU = [
+    '滅', '苦', '婆', '娑', '耶', '陀', '跋', '多', '漫', '都', '殿', '悉', '夜', '爍', '帝', '吉',
+    '利', '阿', '無', '南', '那', '怛', '喝', '羯', '勝', '摩', '伽', '謹', '波', '者', '穆', '僧',
+    '室', '藝', '尼', '瑟', '地', '彌', '菩', '提', '蘇', '醯', '盧', '呼', '舍', '佛', '參', '沙',
+    '伊', '隸', '麼', '遮', '闍', '度', '蒙', '孕', '薩', '夷', '迦', '他', '姪', '豆', '特', '逝',
+    '朋', '輸', '楞', '栗', '寫', '數', '曳', '諦', '羅', '曰', '咒', '即', '密', '若', '般', '故',
+    '不', '實', '真', '訶', '切', '一', '除', '能', '等', '是', '上', '明', '大', '神', '知', '三',
+    '藐', '耨', '得', '依', '諸', '世', '槃', '涅', '竟', '究', '想', '夢', '倒', '顛', '離', '遠',
+    '怖', '恐', '有', '礙', '心', '所', '以', '亦', '智', '道', '。', '集', '盡', '死', '老', '至']
+
+BYTEMARK = ['冥', '奢', '梵', '呐', '俱', '哆', '怯', '諳', '罰', '侄', '缽', '皤']
+
+def Encrypt(plaintext):
+    # 1. Encode Plaintext in UTF-16 Little Endian
+    data = plaintext.encode('utf-16le')
+    # 2. Add Paddings (PKCS7)
+    pads = (- len(data)) % 16
+    data = data + bytes(pads * [pads])
+    # 3. Use AES-256-CBC to Encrypt
+    cryptor = AES.new(KEY, AES.MODE_CBC, IV)
+    result = cryptor.encrypt(data)
+    # 4. Encode and Add Header
+    return '佛曰：' + ''.join([TUDOU[i] if i &lt; 128 else choice(BYTEMARK) + TUDOU[i-128] for i in result])
+
+def Decrypt(ciphertext):
+    # 1. Remove Header and Decode
+    if ciphertext.startswith('佛曰：'):
+        ciphertext = ciphertext[3:]
+        data = b''
+        i = 0
+        while i &lt; len(ciphertext):
+            if ciphertext[i] in BYTEMARK:
+                i = i + 1
+                data = data + bytes([TUDOU.index(ciphertext[i]) + 128])
+            else:
+                data = data + bytes([TUDOU.index(ciphertext[i])])
+            i = i + 1
+        # 2. Use AES-256-CBC to Decrypt
+        cryptor = AES.new(KEY, AES.MODE_CBC, IV)
+        result = cryptor.decrypt(data)
+        # 3. Remove Paddings (PKCS7)
+        flag = result[-1]
+        if flag &lt; 16 and result[-flag] == flag:
+            result = result[:-flag]
+        # 4. Decode Plaintext with UTF-16 Little Endian
+        return result.decode('utf-16le')
+    else:
+        return ''
+
+print(Encrypt('123'))
+print(Decrypt('佛曰：遮等諳勝能礙皤藐哆娑梵迦侄羅哆迦梵者梵楞蘇涅侄室實真缽朋能。奢怛俱道怯都諳怖梵尼怯一罰心缽謹缽薩苦奢夢怯帝梵遠朋陀諳陀穆諳所呐知涅侄以薩怯想夷奢醯數羅怯諸'))</code></pre>
+<h2 id="gakki"><a href="#gakki" class="headerlink" title="gakki"></a>gakki</h2><p><strong>考察：图片隐写文件，字频分析                难度：易</strong></p>
+<p>一张wolaopo.jpg</p>
+<p>binwalk -e 出一个压缩包，有密码，无提示，大概率是爆破：<code>8864</code></p>
+<p>98KB的文本，大量无规律字符集，尝试字频分析。</p>
+<p>我用的是一个<a href="https://www.browserling.com/tools/letter-frequency" target="_blank" rel="noopener">在线词频分析</a>的网站，用脚本也可以</p>
+<pre><code class="python"># gakki_exp.py
+# Author : imagin
+alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&amp;*()_+- ={}[]"
+f = open("flag.txt", "r")
+data = f.read()
+result = {d:0 for d in alphabet}
+
+def sort_by_value(d):
+    items = d.items()
+    backitems = [[v[1],v[0]] for v in items]
+    backitems.sort(reverse=True)
+    return [ backitems[i][1] for i in range(0,len(backitems))]
+
+for d in data:
+    for alpha in alphabet:
+        if d == alpha:
+            result[alpha] = result[alpha] + 1
+
+print(sort_by_value(result))</code></pre>
+<h2 id="SXMgdGhpcyBiYXNlPw"><a href="#SXMgdGhpcyBiYXNlPw" class="headerlink" title="SXMgdGhpcyBiYXNlPw=="></a>SXMgdGhpcyBiYXNlPw==</h2><p><strong>考察：Base64隐写                难度：中等</strong></p>
+<p>题目名字：base64解密为“ Is this base?”</p>
+<p>base64隐写：</p>
+<pre><code class="python"># -*- coding: UTF-8 -*-
+def processLine(line, CharacterCounts):
+    for character in line:
+        #if ord(character) in range(97, 123):
+        if ord(character) in range(32,126):
+            CharacterCounts[character] += 1
+
+#创建字母字典
+def createCharacterCounts(CharacterCounts):
+    #for i in range(97, 123):
+    for i in range(32, 126):
+        CharacterCounts[chr(i)] = 0
+
+def main():
+    #用户输入一个文件名
+    # filename = input("enter a filename:").strip()
+    filename = "123.txt"
+    infile = open(filename, "r")
+
+    #建立用于计算词频的空字典
+    CharacterCounts = {}
+    #初始化字典键值
+    createCharacterCounts(CharacterCounts)
+    for line in infile:
+        #processLine(line.lower(), CharacterCounts)
+        processLine(line, CharacterCounts)
+
+    #从字典中获取数据对
+    pairs = list(CharacterCounts.items())
+
+    #列表中的数据对交换位置,数据对排序
+    items = [[x,y] for (y,x) in pairs] 
+    items.sort(reverse=True)
+
+    #输出count个数词频结果
+    for i in range(len(items)):
+        #print(items[i][1]+"\t"+str(items[i][0]))
+        print(items[i][1],end='')
+
+    infile.close()
+
+if __name__ == '__main__':
+    main()</code></pre>
+<p>说一下bs64隐写的原理：</p>
+<blockquote>
+<p>比如, 字符串”Tr0”经过 Base64 编码后变为”VHIw”<br><a href="https://rzx1szyykpugqc-1252075454.piccd.myqcloud.com/Base64steg/20180917030331547.png!blog" target="_blank" rel="noopener"><img src="https://rzx1szyykpugqc-1252075454.piccd.myqcloud.com/Base64steg/20180917030331547.png!blog" alt="Tr0"></a></p>
+<p>上面说的字符串长度为 3 个字节的数据位数是 8x3=24, 可以精确地分成 6x4.<br>如果字节数不是 3 的倍数, 则位数就不是 6 的倍数, 那么就不能精确地划分成 6 位的块.<br>此时, 需在原数据二进制值后面添加零, 使其字节数是 6 的倍数.<br>然后, 在编码后的字符串后面添加 1 个或 2 个等号”=”, 表示所添加的零值字节数.<br>比如, 字符串”Tr0y”经过 Base64 编码后变为”VHIweQ==”</p>
+<p><a href="https://rzx1szyykpugqc-1252075454.piccd.myqcloud.com/Base64steg/20180917030350894.png!blog" target="_blank" rel="noopener"><img src="https://rzx1szyykpugqc-1252075454.piccd.myqcloud.com/Base64steg/20180917030350894.png!blog" alt="Tr0y"></a></p>
+<p>橙色底纹就是添加的 0.<br>这是 Base64 编码的方式.</p>
+<p>注意红色的 0, 我们在解码的时候将其丢弃了, 所以这里的值不会影响解码. 所以我们可以在这进行隐写.<br>为什么等号的那部分 0 不能用于隐写? 因为修改那里的二进制值会导致等号数量变化, 解码的第 1 步会受影响. 自然也就破坏了源字符串.<br>而红色部分的 0 是作为最后一个字符二进制的组成部分, 还原时只用到了最后一个字符二进制的前部分, 后面的部分就不会影响还原.<br>唯一的影响就是最后一个字符会变化. 如下图<br><a href="https://rzx1szyykpugqc-1252075454.piccd.myqcloud.com/Base64steg/20180917030415646.png!blog" target="_blank" rel="noopener"><img src="https://rzx1szyykpugqc-1252075454.piccd.myqcloud.com/Base64steg/20180917030415646.png!blog" alt="隐写"></a><br>如果你直接解密<code>’VHIweQ==’与’VHIweR==’</code>, 得到的结果都是’Tr0y’.</p>
+<p>当然, 一行 base64 顶多能有 2 个等号, 也就是有 2*2 位的可隐写位. 所以我们得弄很多行, 才能隐藏一个字符串, 这也是为什么题目给了一大段 base64 的原因.<br>接下来, 把要隐藏的 flag 转为 8 位二进制, 塞进去就行了.</p>
+<p>摘自<a href="https://www.tr0y.wang/2017/06/14/Base64steg/index.html" target="_blank" rel="noopener">https://www.tr0y.wang/2017/06/14/Base64steg/index.html</a></p>
+</blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {

