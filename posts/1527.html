@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.1"></head>
 
 
 <body>
@@ -459,7 +459,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    10.5k
+                    10.6k
                 </div>
                 
 
@@ -1555,13 +1555,34 @@ $sql="SELECT * FROM users WHERE id=1 LIMIT 0,1 into $id";</code></pre>
 <pre><code class="mysql">'or/**/1=1/**/GROUP/**/BY/**/password/**/WITH/**/ROLLUP/**/LIMIT/**/1/**/OFFSET/**/1#</code></pre>
 <p>payload解释：</p>
 <ul>
-<li><p>后面的limit…offset…自然不用多说，绕过逗号</p>
-</li>
-<li><p>在group by 列名 with rollup 中，倘若按列名分组后，列的属性值是不相同的，会生成一条分组条件的列为null的一条新的数据。而如果查询结果是唯一的，一会生成一条分组条件所在列为null的数据</p>
-</li>
-<li><p>所以我们可以通过with rollup使sql语句查询的password为null，然后不输入password，使我们的password为NULL，即可成功绕过最后的password判断</p>
-</li>
+<li>后面的limit…offset…自然不用多说，绕过逗号</li>
+<li>在group by 列名 with rollup 中，倘若按列名分组后，列的属性值是不相同的，会生成一条分组条件的列为null的一条新的数据。而如果查询结果是唯一的，一会生成一条分组条件所在列为null的数据</li>
+<li>所以我们可以通过with rollup使sql语句查询的password为null，然后不输入password，使我们的password为NULL，即可成功绕过最后的password判断</li>
 </ul>
+<h4 id="9-4-md5-password-true-的绕过"><a href="#9-4-md5-password-true-的绕过" class="headerlink" title="9-4.md5($password,true)的绕过"></a>9-4.md5($password,true)的绕过</h4><p>发现这个是在<strong>BJDCTF2020</strong>的<strong>easyMD5</strong>题目中。</p>
+<p>先了解一下<strong>md5(string,raw)</strong>函数</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>string</td>
+<td>计算的字符串</td>
+</tr>
+<tr>
+<td>raw</td>
+<td>默认为False，32位16进制        True是16位原式二进制格式的字符串</td>
+</tr>
+</tbody></table>
+<p>相关链接：<a href="https://blog.csdn.net/March97/article/details/81222922" target="_blank" rel="noopener">https://blog.csdn.net/March97/article/details/81222922</a></p>
+<p>常见的相关字符串如（content部分）：</p>
+<p><code>content: ffifdyop</code></p>
+<p><code>hex: 276f722736c95d99e921722cf9ed621c</code></p>
+<p><code>raw: 'or'6\xc9]\x99\xe9!r,\xf9\xedb\x1c</code></p>
+<p><code>string: 'or'6]!r,b</code></p>
 <h1 id="MSSQL"><a href="#MSSQL" class="headerlink" title="MSSQL"></a>MSSQL</h1><p>Written by <a href="http://hackyangtuo.top/">小羊驼</a></p>
 <p>前面ttpfx师傅写的Mysql的基本思路已经差不多够了，下面稍微总结一下mssql的一些</p>
 <h2 id="Basic"><a href="#Basic" class="headerlink" title="Basic"></a>Basic</h2><h3 id="系统库"><a href="#系统库" class="headerlink" title="系统库"></a>系统库</h3><table>
