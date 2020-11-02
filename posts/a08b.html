@@ -455,7 +455,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    459
+                    458
                 </div>
                 
 
@@ -490,7 +490,7 @@
 <p>Unicode最高支持32bit，也就是4字节大小的内容。通常情况下，我们使用8bit Unicode进行编码，如尖括号&lt;的8bit 二进制数为00111100，转换16进制数后是3C，URL编码后为%3C。但是偶尔有一些网站会接收高位Unicode编码，这样有利于我们来绕过一些WAF</p>
 <p>尝试了一下还是可以的</p>
 <pre><code>?keyword=javascrip&amp;#116;:alert(V1cuna)</code></pre><h1 id="Level9"><a href="#Level9" class="headerlink" title="Level9"></a>Level9</h1><p>没啥意思，用level9的payload说不合法，也不知道是怎么个不合法，去源码看了一下发现是要加<code>http://</code>那些</p>
-<pre><code>?keyword=javascrip&amp;#116;:alert(V1cuna)//http://</code></pre><h1 id="Level10"><a href="#Level10" class="headerlink" title="Level10"></a>Level10</h1><pre><code>?t_link=111&amp;t_history=222&amp;t_sort=" onclick="alert(V1cuna)" type="</code></pre><h1 id="Level11"><a href="#Level11" class="headerlink" title="Level11"></a>Level11</h1><h1 id="Level12"><a href="#Level12" class="headerlink" title="Level12"></a>Level12</h1><h1 id="Level13"><a href="#Level13" class="headerlink" title="Level13"></a>Level13</h1><h1 id="Level14"><a href="#Level14" class="headerlink" title="Level14"></a>Level14</h1><h1 id="Level15"><a href="#Level15" class="headerlink" title="Level15"></a>Level15</h1><h1 id="Level16"><a href="#Level16" class="headerlink" title="Level16"></a>Level16</h1><h1 id="Level17"><a href="#Level17" class="headerlink" title="Level17"></a>Level17</h1><h1 id="Level18"><a href="#Level18" class="headerlink" title="Level18"></a>Level18</h1><h1 id="Level19"><a href="#Level19" class="headerlink" title="Level19"></a>Level19</h1><h1 id="Level20"><a href="#Level20" class="headerlink" title="Level20"></a>Level20</h1><script>
+<pre><code>?keyword=javascrip&amp;#116;:alert(V1cuna)//http://</code></pre><h1 id="Level10"><a href="#Level10" class="headerlink" title="Level10"></a>Level10</h1><pre><code>?t_link=111&amp;t_history=222&amp;t_sort=" onclick="alert(V1cuna)" type="</code></pre><h1 id=""><a href="#" class="headerlink" title=""></a></h1><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -618,28 +618,66 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/f292.html">
+                <a href="/posts/271d.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/23.jpg" class="responsive-img" alt="python字符串的学习">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="Laravel 5.8.x 漏洞分析">
                         
-                        <span class="card-title">python字符串的学习</span>
+                        <span class="card-title">Laravel 5.8.x 漏洞分析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            Laravel 5.8.x 漏洞分析据中哥说①环境出了点问题②有五条链子，但是我今天自己只跟出来三条（一条好像被修了）。。。wtcl，没分析出来的我把连接放上。
+搭建环境composer create-project --prefer-di
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-29
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-02
                         </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            V1cuna
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/73b4.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/13.jpg" class="responsive-img" alt="python脚本收编写">
+                        
+                        <span class="card-title">python脚本收编写</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            fuzz测试#! -*- encoding:utf-8 -*-
+# python3
+import requests
+fuzz_zs = ['/*', '*/', '/*!', '*', '=', '`', '!', '@', '%', '.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-07
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -653,54 +691,6 @@
                     
                     <a href="/tags/python/">
                         <span class="chip bg-color">-python</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/posts/6f37.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="ASIS2020">
-                        
-                        <span class="card-title">ASIS2020</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            WEBWeb Warm-Up知识点:限制长度的无字母webshell直接要求读flag.php。
-&lt;?php
-if(isset($_GET['view-source'])){
-    highlight_file(__FILE__);
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-09
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            V1cuna
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/CTF-WP/">
-                        <span class="chip bg-color">-CTF -WP</span>
                     </a>
                     
                 </div>

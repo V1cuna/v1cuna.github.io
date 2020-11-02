@@ -535,8 +535,7 @@ passwd:123456</code></pre><p>  后来想起来当时sqlmap一把梭了</p>
 <p>fuzz一个普通图片马试试，回显<code>“这标志明显还是php”</code>，应该是判断hex码的头，如<code>&lt;?</code>。简单的添加GIF89a头，用这个形式：</p>
 <pre><code class="html">&lt;script language="php"&gt; eval($_POST[v]); &lt;/script&gt;</code></pre>
 <p>之后和之前一样，上传.htaccess，改Content-Type，但是之后发现无法访问，怀疑是后台每隔一段时间就删掉了。条件竞争处理即可。</p>
-<h2 id="BabysqliV3-0"><a href="#BabysqliV3-0" class="headerlink" title="BabysqliV3.0"></a>BabysqliV3.0</h2><p>考察：phar<strong>反序列化</strong>                </p>
-<h2 id="StrongestMind"><a href="#StrongestMind" class="headerlink" title="StrongestMind"></a>StrongestMind</h2><h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><p>buu交的时候前缀改为flag哦</p>
+<h1 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h1><p>buu交的时候前缀改为flag哦</p>
 <h2 id="佛系青年"><a href="#佛系青年" class="headerlink" title="佛系青年"></a>佛系青年</h2><p><strong>考察：伪加密，与佛论禅                难度：易</strong></p>
 <p>压缩包，头部有损坏。检查发现是fo.txt处出现了伪加密，将0900改为0000.</p>
 <p>打开是与佛论禅，由于原网站GG，用脚本一样可以：</p>

